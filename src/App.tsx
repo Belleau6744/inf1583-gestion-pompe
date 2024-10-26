@@ -1,34 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom';
+import './App.css';
+import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
+import Rapport from './components/rapports/Rapport';
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  /** App Layout Structure */
+const Layout = () => {
+  return (
+      <>
+        <AppBar>
+          <Toolbar variant="dense">
+            <Link to={"/"}><Typography sx={{ padding: '20px', color: "white !important" }} component="div">Overview</Typography></Link>
+            <Link to={"/rapports"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Rapports</Typography></Link>
+            <Link to={"/comptes"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Comptes</Typography></Link>
+          </Toolbar>
+        </AppBar>
+        <Outlet />
+      </>
+  );
+};
+
+const router = createBrowserRouter([
+  {
+    element: <Layout/>,
+    path: "/",
+    children: [
+      {
+        path:"/",
+        element:<OverviewPompes />
+      },
+      {
+        path: "/rapports",
+        element: <Rapport />
+      }
+    ]
+  },
+]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <RouterProvider router={router}/>
   )
 }
 

@@ -1,0 +1,87 @@
+import ClearIcon from '@mui/icons-material/Clear';
+import DoneIcon from '@mui/icons-material/Done';
+import { Paper, TextField } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import { Pompe_State } from '@types';
+import { useState } from 'react';
+import styled from 'styled-components';
+
+const Item = styled(Paper)`
+    &&:hover {
+        cursor: pointer;
+    }
+`;
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+`;
+
+type Props = {
+    setState: React.Dispatch<React.SetStateAction<Pompe_State>>
+
+}
+
+const CreditCard = ({ setState }: Props) => {
+    const [ cardNum, setCardNum ] = useState<string>("");
+    const [ hasError, setHasError ] = useState<boolean>(false);
+
+    const handleNext = () => {
+        if (cardNum.length === 4) {
+            setState("review");
+        } else {
+            setHasError(true);
+        }
+    }
+
+    const handleInputChange = () => {
+        setHasError(false);
+        if (cardNum.length < 4)  {
+            setCardNum(prev => prev+="*");
+        }
+    }
+
+    const handleRemove = () => {
+        setCardNum(prev => prev.slice(0, prev.length-1))
+    }
+
+    return (
+        <Container>
+            <TextField helperText={hasError ? "WRONG PIN" : ""} error={hasError} value={cardNum} sx={{ height: '30px' }} aria-readonly slotProps={{input: { readOnly: true}}}/>
+
+            <Grid container spacing={2}>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>1</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>2</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>3</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>4</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>5</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>6</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item sx={{ backgroundColor: 'wheat' }} onClick={handleRemove}><ClearIcon/></Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleInputChange}>0</Item>
+                </Grid>
+                <Grid size={4}>
+                    <Item onClick={handleNext}><DoneIcon/></Item>
+                </Grid>
+            </Grid>
+        </Container>
+    )
+}
+
+export default CreditCard;
