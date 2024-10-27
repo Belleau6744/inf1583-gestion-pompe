@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Features } from "redux/features";
 import styled from "styled-components";
 import Line from "./content/Line";
 import Pompe from "./content/Pompe";
@@ -96,8 +99,17 @@ const POSITON_POMPES = {
   `;
 
 const OverviewPompes = () => {
+    const isUserConnected = useSelector(Features.UserFeature.selector.isUserSignedIn);
+    const nav = useNavigate();
     const [ reservoir1Qty, setReservoir1Qty ] = useState(100);
     const [ reservoir2Qty, setReservoir2Qty ] = useState(100);
+
+    /**
+     * Navigate back to login if user is not logged in
+     */
+    useEffect(() => {
+      if (!isUserConnected) nav("/");
+    }, [isUserConnected, nav]);
   
     const handleResetALL = () => {
       setReservoir2Qty(100);

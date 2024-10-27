@@ -147,7 +147,7 @@ const Pompe = (props: PompeProps) => {
                 )
             case "review":
                 return (
-                    <Review />
+                    <Review volumeDispensed={volumeDispensed} amountDispensed={amountDispensed} />
                 )
             default:
                 return (

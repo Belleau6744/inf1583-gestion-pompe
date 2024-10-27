@@ -1,6 +1,14 @@
-const Review = () => {
+type Props = {
+    amountDispensed: number;
+    volumeDispensed: number;
+}
+
+const Review = ({ volumeDispensed, amountDispensed }: Props) => {
     return (
-        <div>test</div>
+        <div>
+            {volumeDispensed}
+            {amountDispensed}
+        </div>
     )
 }
 
