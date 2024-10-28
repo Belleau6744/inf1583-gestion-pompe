@@ -1,13 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { UserState } from './features/User/types';
 import { Features } from './features';
+import { GestionPompe } from './features/GestionPompes/types';
+import { UserState } from './features/User/types';
 
 export type StoreState = {
     user: UserState;
+    gestionPompes: GestionPompe;
 }
 
 export const reducer = {
-    user: Features.UserFeature.reducer.userReducer
+    user: Features.UserFeature.reducer.userReducer,
+    gestionPompes: Features.GestionPompesFeature.reducer.gestionPompesReducer
 }
 
 export const store = configureStore({

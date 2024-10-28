@@ -14,4 +14,6 @@ export type Pompe_State =
     "review"              
 ;
 
+export type FuelGrade = "regulier"|"premium";
+
 export type UserRole = "admin" | "employee";

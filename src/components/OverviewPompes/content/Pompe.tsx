@@ -2,7 +2,7 @@ import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Card } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
-import { BasePropsType, Pompe_State } from "../../../types/types";
+import { BasePropsType, FuelGrade, Pompe_State } from "../../../types/types";
 import { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } from "../../../utils/constants";
 import CreditCard from './CreditCard';
 import HomeMenu from "./HomeMenu";
@@ -38,7 +38,7 @@ const Pompe = (props: PompeProps) => {
 
     /** Informations contenues dans une pompe */
     const [ state, setState ] = useState<Pompe_State>("home");
-    const [ fuelGrade, setFuelGrade ] = useState<"regulier"|"premium">();
+    const [ fuelGrade, setFuelGrade ] = useState<FuelGrade>();
     const [ volumeDispensed, setVolumeDispensed ] = useState<number>(0);
     const [ amountDispensed, setAmountDispensed ] = useState<number>(0);
     const [ isDispensing, setIsDispensing ] = useState<boolean>(false);
