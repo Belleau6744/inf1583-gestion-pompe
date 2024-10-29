@@ -1,7 +1,9 @@
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Card } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
+import { Features } from "../../../redux/features";
 import { BasePropsType, FuelGrade, Pompe_State } from "../../../types/types";
 import { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } from "../../../utils/constants";
 import CreditCard from './CreditCard';
@@ -14,8 +16,7 @@ import SelectPaymentMethod from './SelectPaymentMethod';
 import SelectVolume from "./SelectVolume";
 
 type PompeProps = BasePropsType & {
-    setReservoir1Qty: React.Dispatch<React.SetStateAction<number>>;
-    setReservoir2Qty: React.Dispatch<React.SetStateAction<number>>;
+    id: string;
 };
 
 const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
@@ -34,7 +35,9 @@ const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
   `
 
 const Pompe = (props: PompeProps) => {
-    const { className, setReservoir1Qty, setReservoir2Qty } = props;
+    const dispatch = useDispatch();
+
+    const { className } = props;
 
     /** Informations contenues dans une pompe */
     const [ state, setState ] = useState<Pompe_State>("home");
@@ -87,20 +90,26 @@ const Pompe = (props: PompeProps) => {
         if (isDispensing) {
             timerId = setInterval(() => {
                 if (fuelGrade === "premium") {
-                    setReservoir2Qty((prev) => {
-                        const newValue = prev - DISPENSING_SPEED;
-                        const formatedValue = parseFloat(newValue.toFixed(2))
-                        // Ensure reservoir doesn't go below 0
-                        return Math.max(0, formatedValue);
-                    });
+                    dispatch(
+                        Features
+                        .GestionPompesFeature
+                        .action
+                        .reduceRerservoirFillValue({
+                            reservoirID: "2",
+                            value: DISPENSING_SPEED
+                        }
+                    ))
                 }
                 if (fuelGrade === "regulier") {
-                    setReservoir1Qty((prev) => {
-                        const newValue = prev - DISPENSING_SPEED;
-                        const formatedValue = parseFloat(newValue.toFixed(2))
-                        // Ensure reservoir doesn't go below 0
-                        return Math.max(0, formatedValue);
-                    });
+                    dispatch(
+                        Features
+                        .GestionPompesFeature
+                        .action
+                        .reduceRerservoirFillValue({
+                            reservoirID: "1",
+                            value: DISPENSING_SPEED
+                        }
+                    ))
                 }
                 setVolumeDispensed(prev => {
                     const newValue = prev + DISPENSING_SPEED;
@@ -113,7 +122,7 @@ const Pompe = (props: PompeProps) => {
                 clearInterval(timerId);
             }
         };
-    }, [fuelGrade, isDispensing, setReservoir1Qty, setReservoir2Qty]);
+    }, [dispatch, fuelGrade, isDispensing]);
 
     const CurrentState = useMemo(() => {
         switch(state) {

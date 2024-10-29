@@ -1,9 +1,11 @@
 import PropaneIcon from '@mui/icons-material/Propane';
+import { useSelector } from 'react-redux';
+import { Features } from 'redux/features';
 import styled from "styled-components";
 import { BasePropsType } from "../../../types/types";
 
 type ReservoirProps = BasePropsType & {
-    fillPercentage: number;
+    id: string;
     color: string;
 }
 
@@ -33,13 +35,15 @@ const ValueWrapper = styled.span`
 `;
 
 const Reservoir = (props: ReservoirProps) => {
-    const { className, fillPercentage, color } = props;
+    const { className, color, id } = props;
+
+    const fillPercentage = useSelector(Features.GestionPompesFeature.selector.getReservoirs)[id].fillPercentage;
 
     return (
         <Container className={className} $fillPercentage={fillPercentage} $color={color}>
-            <PropaneIcon fontSize="medium"/>
+            <PropaneIcon fontSize="medium" />
             <ContentWrapper>
-            <ValueWrapper>{fillPercentage}%</ValueWrapper>
+                <ValueWrapper>{fillPercentage}%</ValueWrapper>
             </ContentWrapper>
         </Container>
     )

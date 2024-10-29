@@ -1,5 +1,5 @@
 import { StoreState } from "../../store";
 
-export const getReservoirFillValue = (state: StoreState, reservoirID: string) => {
-    return state.gestionPompes.reservoirs[reservoirID];
+export const getReservoirs = (state: StoreState) => {
+    return state.gestionPompes.reservoirs;
 }

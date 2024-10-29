@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Features } from "redux/features";
 import styled from "styled-components";
@@ -99,10 +99,10 @@ const POSITON_POMPES = {
   `;
 
 const OverviewPompes = () => {
-    const isUserConnected = useSelector(Features.UserFeature.selector.isUserSignedIn);
     const nav = useNavigate();
-    const [ reservoir1Qty, setReservoir1Qty ] = useState(100);
-    const [ reservoir2Qty, setReservoir2Qty ] = useState(100);
+    const dispatch = useDispatch();
+    const isUserConnected = useSelector(Features.UserFeature.selector.isUserSignedIn);
+    
 
     /**
      * Navigate back to login if user is not logged in
@@ -112,20 +112,19 @@ const OverviewPompes = () => {
     }, [isUserConnected, nav]);
   
     const handleResetALL = () => {
-      setReservoir2Qty(100);
-      setReservoir1Qty(100);
+      dispatch(Features.GestionPompesFeature.action.resetReservoir({}));
     }
   
     const handleReset1 = () => {
-      setReservoir1Qty(100);
+      dispatch(Features.GestionPompesFeature.action.resetReservoir({ reservoirID: "1" }));
     }
     const handleReset2 = () => {
-      setReservoir2Qty(100);
+      dispatch(Features.GestionPompesFeature.action.resetReservoir({ reservoirID: "2" }));
     }
     return (
         <>
-            <Reservoir_un color="#1329ca" fillPercentage={reservoir1Qty}/>
-            <Reservoir_deux color="#d7ac28" fillPercentage={reservoir2Qty}/>
+            <Reservoir_un id="1" color="#1329ca" />
+            <Reservoir_deux id="2" color="#d7ac28" />
             <Line color="black" point1={{top: 10, left: 56}} point2={POSITION_RESERVOIR.one}/>
             <Line color="black" point1={POSITON_POMPES.two} point2={POSITION_RESERVOIR.one}/>
             <Line color="black" point1={{top: 62, left: 56}} point2={POSITION_RESERVOIR.one}/>
@@ -137,11 +136,11 @@ const OverviewPompes = () => {
             <Line color="white" point1={{top: 60, left: 49}} point2={POSITION_RESERVOIR.two}/>
             <Line color="white" point1={{top: 88, left: 49}} point2={POSITION_RESERVOIR.two}/>
             <Line color="white" point1={{top: 115, left: 49}} point2={POSITION_RESERVOIR.two}/>
-            <Pompe_un setReservoir1Qty={setReservoir1Qty} setReservoir2Qty={setReservoir2Qty}/>
-            <Pompe_deux setReservoir1Qty={setReservoir1Qty} setReservoir2Qty={setReservoir2Qty}/>
-            <Pompe_three setReservoir1Qty={setReservoir1Qty} setReservoir2Qty={setReservoir2Qty}/>
-            <Pompe_four setReservoir1Qty={setReservoir1Qty} setReservoir2Qty={setReservoir2Qty}/>
-            <Pompe_five setReservoir1Qty={setReservoir1Qty} setReservoir2Qty={setReservoir2Qty}/>
+            <Pompe_un id="1" />
+            <Pompe_deux id="2" />
+            <Pompe_three id="3" />
+            <Pompe_four id="4" />
+            <Pompe_five id="5" />
             <ResetALLButton onClick={() => handleResetALL()}>RESET ALL</ResetALLButton>
             <Reset1Button onClick={() => handleReset1()}>RESET 1</Reset1Button>
             <Reset2Button onClick={() => handleReset2()}>RESET 2</Reset2Button>
