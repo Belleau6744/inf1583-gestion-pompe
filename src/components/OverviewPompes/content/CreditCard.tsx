@@ -1,9 +1,11 @@
+import { Features } from "@features";
 import ClearIcon from '@mui/icons-material/Clear';
 import DoneIcon from '@mui/icons-material/Done';
 import { Paper, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import { Pompe_State } from '@types';
-import { useState } from 'react';
+import { PumpIDProp } from '@types';
+import { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 const Item = styled(Paper)`
@@ -19,29 +21,30 @@ const Container = styled.div`
     height: 100%;
 `;
 
-type Props = {
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>
-
-}
-
-const CreditCard = ({ setState }: Props) => {
+const CreditCard = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
     const [ cardNum, setCardNum ] = useState<string>("");
     const [ hasError, setHasError ] = useState<boolean>(false);
 
-    const handleNext = () => {
+
+    const handleGoToReview = useCallback(() => {
         if (cardNum.length === 4) {
-            setState("review");
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "state",
+                value: "review"
+            }));
         } else {
             setHasError(true);
         }
-    }
+    }, [cardNum.length, dispatch, pumpID]);
 
-    const handleInputChange = () => {
+    const handleInputChange = useCallback(() => {
         setHasError(false);
         if (cardNum.length < 4)  {
             setCardNum(prev => prev+="*");
         }
-    }
+    }, [cardNum.length]);
 
     const handleRemove = () => {
         setCardNum(prev => prev.slice(0, prev.length-1))
@@ -77,7 +80,7 @@ const CreditCard = ({ setState }: Props) => {
                     <Item onClick={handleInputChange}>0</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleNext}><DoneIcon/></Item>
+                    <Item onClick={handleGoToReview}><DoneIcon/></Item>
                 </Grid>
             </Grid>
         </Container>

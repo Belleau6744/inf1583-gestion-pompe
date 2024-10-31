@@ -1,6 +1,6 @@
+import { Features } from "@features";
 import PropaneIcon from '@mui/icons-material/Propane';
 import { useSelector } from 'react-redux';
-import { Features } from 'redux/features';
 import styled from "styled-components";
 import { BasePropsType } from "../../../types/types";
 
@@ -36,8 +36,7 @@ const ValueWrapper = styled.span`
 
 const Reservoir = (props: ReservoirProps) => {
     const { className, color, id } = props;
-
-    const fillPercentage = useSelector(Features.GestionPompesFeature.selector.getReservoirs)[id].fillPercentage;
+    const fillPercentage = useSelector(Features.GestionPompesFeature.selector.getReservoirFillPercentage(id));
 
     return (
         <Container className={className} $fillPercentage={fillPercentage} $color={color}>

@@ -1,12 +1,12 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { reduceRerservoirFillValue, resetReservoir } from "./action";
-import { GestionPompe } from "./types";
+import { reduceRerservoirFillValue, resetReservoir, updatePump } from "./action";
+import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "./types";
 
 const initialState: GestionPompe = { 
     pompes: {
         "1": {
             id: "1",
-            etat: "ready",
+            state: "ready",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -16,7 +16,7 @@ const initialState: GestionPompe = {
         },
         "2": {
             id: "2",
-            etat: "ready",
+            state: "ready",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -26,7 +26,7 @@ const initialState: GestionPompe = {
         },
         "3": {
             id: "3",
-            etat: "ready",
+            state: "ready",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -36,7 +36,7 @@ const initialState: GestionPompe = {
         },
         "4": {
             id: "4",
-            etat: "ready",
+            state: "ready",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -46,7 +46,7 @@ const initialState: GestionPompe = {
         },
         "5": {
             id: "5",
-            etat: "ready",
+            state: "ready",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -67,7 +67,13 @@ const initialState: GestionPompe = {
     }
 }
 
-const handleReduceRerservoirFillValue = (state: GestionPompe, action: PayloadAction<{ reservoirID: string,  value: number}>) => {
+const handleReduceRerservoirFillValue = (
+    state: GestionPompe,
+    action: PayloadAction<{
+        reservoirID: string,
+        value: number
+    }>
+) => {
     const prev = state.reservoirs[action.payload.reservoirID].fillPercentage;
     const newValue = prev - action.payload.value;
     const formatedValue = parseFloat(newValue.toFixed(2))
@@ -75,7 +81,10 @@ const handleReduceRerservoirFillValue = (state: GestionPompe, action: PayloadAct
     state.reservoirs[action.payload.reservoirID].fillPercentage = Math.max(0, formatedValue);
 }
 
-const handleResetReservoir = (state: GestionPompe, action: PayloadAction<{ reservoirID?: string}>) => {
+const handleResetReservoir = (
+    state: GestionPompe,
+    action: PayloadAction<{ reservoirID?: string}>
+) => {
     const reservoirID = action.payload.reservoirID;
     if (reservoirID) {
         state.reservoirs[reservoirID].fillPercentage = 100;
@@ -86,11 +95,25 @@ const handleResetReservoir = (state: GestionPompe, action: PayloadAction<{ reser
     }
 }
 
+// Update the reducer function
+const handleUpdatePump = <K extends UpdatePumpParam>(
+    state: GestionPompe,
+    action: PayloadAction<UpdatePumpPayload<K>>
+) => {
+    const { pumpID, parameter, value } = action.payload;
+
+    if (pumpID && state.pompes[pumpID]) {
+        state.pompes[pumpID][parameter] = value;
+    }
+};
+
+
 
 export const gestionPompesReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(reduceRerservoirFillValue, handleReduceRerservoirFillValue)
         .addCase(resetReservoir, handleResetReservoir)
+        .addCase(updatePump, handleUpdatePump)
         
         
 })

@@ -1,27 +1,37 @@
+import { Features } from "@features";
 import { CircularProgress, Typography } from "@mui/material";
-import { Pompe_State } from "@types";
+import { PumpIDProp } from "@types";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Container = styled.div`
     background-color: white;
-
 `;
 
-type Props = {
-    amountDispensed: number;
-    volumeDispensed: number;
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>
 
-}
-
-const Review = ({ volumeDispensed, amountDispensed, setState }: Props) => {
+const Review = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
+    const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
+    const { volumeDispensed, amountDispensed } = pump;
     const [progress, setProgress] = useState(100);
 
+    /**
+     * Go back to home after countdown is done
+     */
     useEffect(() => {
-        if (progress <=0) setState("home");
-    }, [progress, setState]);
+        if (progress <=0) {
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "state",
+                value: "home"
+            }));
+        }
+    }, [dispatch, progress, pumpID]);
 
+    /**
+     * Start timer countdown for page view
+     */
     useEffect(() => {
         const timer = setInterval(() => {
             setProgress((prevProgress) => (prevProgress-1));

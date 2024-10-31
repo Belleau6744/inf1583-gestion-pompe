@@ -1,3 +1,4 @@
+import { Features } from "@features";
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom';
@@ -5,7 +6,6 @@ import './App.css';
 import HomePage from './components/HomePage';
 import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
 import Rapport from './components/rapports/Rapport';
-import { Features } from "./redux/features";
 
 function App() {
 

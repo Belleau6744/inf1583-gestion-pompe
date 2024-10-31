@@ -1,5 +1,5 @@
+import { Features } from "@features";
 import { configureStore } from '@reduxjs/toolkit';
-import { Features } from './features';
 import { GestionPompe } from './features/GestionPompes/types';
 import { UserState } from './features/User/types';
 

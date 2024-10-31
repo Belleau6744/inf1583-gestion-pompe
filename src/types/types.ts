@@ -2,6 +2,10 @@ export type BasePropsType = {
     className?: string;
 }
 
+export type PumpIDProp = {
+    pumpID: string;
+}
+
 export type Pompe_State = 
     "ready"               |
     "home"                |

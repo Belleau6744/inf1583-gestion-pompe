@@ -1,10 +1,10 @@
+import { Features } from "@features";
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Card } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
-import { Features } from "../../../redux/features";
-import { BasePropsType, FuelGrade, Pompe_State } from "../../../types/types";
+import { BasePropsType } from "../../../types/types";
 import { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } from "../../../utils/constants";
 import CreditCard from './CreditCard';
 import HomeMenu from "./HomeMenu";
@@ -34,35 +34,51 @@ const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
     box-sizing: border-box;
   `
 
-const Pompe = (props: PompeProps) => {
+const Pompe = ({ id, className }: PompeProps) => {
     const dispatch = useDispatch();
-
-    const { className } = props;
-
+    const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id));
+    
     /** Informations contenues dans une pompe */
-    const [ state, setState ] = useState<Pompe_State>("home");
-    const [ fuelGrade, setFuelGrade ] = useState<FuelGrade>();
-    const [ volumeDispensed, setVolumeDispensed ] = useState<number>(0);
-    const [ amountDispensed, setAmountDispensed ] = useState<number>(0);
-    const [ isDispensing, setIsDispensing ] = useState<boolean>(false);
-    const [ selectedAmount, setSelectedAmount ] = useState<number>();
-    const [ selectedVolume, setSelectedVolume ] = useState<number>();
+    const {
+        amountDispensed,
+        fuelGrade,
+        isDispensing,
+        selectedAmount,
+        selectedVolume,
+        state,
+        volumeDispensed,
+    } = pump;
 
-    // const [ timeoutTimer, settimeoutTimer ] = useState<number>(0);
-
+    
     /**
      * Verifier si on atteint la limite (montant/volume)
      */
     useEffect(() => {
         if (selectedVolume && volumeDispensed > selectedVolume) {
-            setIsDispensing(false);
-            setState("selectPaymentMethod");
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: id,
+                parameter: "isDispensing",
+                value: false
+            }));
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: id,
+                parameter: "state",
+                value: "selectPaymentMethod"
+            }));
         }
         if (selectedAmount && amountDispensed > selectedAmount) {
-            setIsDispensing(false);
-            setState("review");
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: id,
+                parameter: "isDispensing",
+                value: false
+            }));
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: id,
+                parameter: "state",
+                value: "review"
+            }));
         }
-    }, [amountDispensed, selectedAmount, selectedVolume, volumeDispensed]);
+    }, [amountDispensed, dispatch, id, selectedAmount, selectedVolume, volumeDispensed]);
 
     /**
      * Update le montant de la facture actuelle
@@ -78,9 +94,18 @@ const Pompe = (props: PompeProps) => {
         if (price > 0) {
             const amount = volumeDispensed*price;
             const amountFormated = parseFloat(amount.toFixed(2));
-            setAmountDispensed(amountFormated);
+            dispatch(
+                Features
+                .GestionPompesFeature
+                .action
+                .updatePump({
+                    pumpID: id,
+                    parameter: "amountDispensed",
+                    value: amountFormated
+                })
+            );
         }
-    }, [fuelGrade, volumeDispensed])
+    }, [dispatch, fuelGrade, id, volumeDispensed])
 
     /**
      * When Pumping, dispense 1unit of volume per second
@@ -111,10 +136,18 @@ const Pompe = (props: PompeProps) => {
                         }
                     ))
                 }
-                setVolumeDispensed(prev => {
-                    const newValue = prev + DISPENSING_SPEED;
-                    return parseFloat(newValue.toFixed(2));
-                });
+
+                const newValue = volumeDispensed + DISPENSING_SPEED;
+                dispatch(
+                    Features
+                    .GestionPompesFeature
+                    .action
+                    .updatePump({
+                        pumpID: id,
+                        parameter: "volumeDispensed",
+                        value: parseFloat(newValue.toFixed(2))
+                    })
+                );
             }, DISPENSING_TIME);
         }
         return () => {
@@ -122,48 +155,48 @@ const Pompe = (props: PompeProps) => {
                 clearInterval(timerId);
             }
         };
-    }, [dispatch, fuelGrade, isDispensing]);
+    }, [dispatch, fuelGrade, id, isDispensing, volumeDispensed]);
 
     const CurrentState = useMemo(() => {
         switch(state) {
             case "home":
                 return (
-                    <HomeMenu setState={setState} />
+                    <HomeMenu pumpID={id} />
                 )
             case "selectAmount":
                 return (
-                    <SelectAmount setSelectedAmount={setSelectedAmount} setState={setState}/>
+                    <SelectAmount pumpID={id} />
                 )
             case "selectVolume":
                 return (
-                    <SelectVolume setState={setState} setSelectedVolume={setSelectedVolume} />
+                    <SelectVolume pumpID={id} />
                 )
             case "selectGrade":
                 return (
-                    <SelectFuelGrade setState={setState} setFuelGrade={setFuelGrade}/>
+                    <SelectFuelGrade pumpID={id} />
                 )
             case "ready":
                 return (
-                    <Ready setState={setState} selectedVolume={selectedVolume} selectedAmount={selectedAmount} volumeDispensed={volumeDispensed} amountDispensed={amountDispensed} setIsDispensing={setIsDispensing}/>
+                    <Ready pumpID={id} />
                 )
             case "selectPaymentMethod":
                 return (
-                    <SelectPaymentMethod  setState={setState} volumeDispensed={volumeDispensed} selectedAmount={selectedAmount} amountDispensed={amountDispensed} />
+                    <SelectPaymentMethod pumpID={id} />
                 )
             case 'carteCredit':
                 return (
-                    <CreditCard setState={setState} />
+                    <CreditCard pumpID={id} />
                 )
             case "review":
                 return (
-                    <Review volumeDispensed={volumeDispensed} setState={setState} amountDispensed={amountDispensed} />
+                    <Review pumpID={id} />
                 )
             default:
                 return (
-                    <HomeMenu setState={setState} />
+                    <HomeMenu pumpID={id} />
                 )
         }
-    }, [state, selectedVolume, selectedAmount, volumeDispensed, amountDispensed]);
+    }, [id, state]);
 
     return (
         <Container elevation={24} $isPumping={isDispensing} className={className}>

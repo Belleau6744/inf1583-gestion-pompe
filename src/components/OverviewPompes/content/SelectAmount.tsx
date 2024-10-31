@@ -1,27 +1,42 @@
+import { Features } from "@features";
 import { Button, TextField, Typography } from "@mui/material";
-import React, { useRef } from "react";
-import { Pompe_State } from "../../../types/types";
+import { PumpIDProp } from "@types";
+import { useCallback, useRef } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>;
-    setSelectedAmount: React.Dispatch<React.SetStateAction<number | undefined>>;
-
-}
-
-const SelectAmount = ({ setState, setSelectedAmount }: Props) => {
+const SelectAmount = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const handleCancel = () => {
-        setState("home")
-    }
+    /**
+     * Cancel transaction and go back to default idle pump state
+     */
+    const handleCancel = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "home"
+        }));
+    },[dispatch, pumpID])
 
-    const handleConfirmAmount = () => {
+    /**
+     * Confirm selection by saving selected amount and moving to selectPaymentMethod state
+     */
+    const handleConfirmAmount = useCallback(() => {
         const value = Number(inputRef.current?.value);
         if (value && !isNaN(value)) {
-            setSelectedAmount(value);
-            setState("selectPaymentMethod");
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "selectedAmount",
+                value: value
+            }));
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "state",
+                value: "selectPaymentMethod"
+            }));
         }
-    }
+    }, [dispatch, pumpID]);
 
     return (
         <div>

@@ -1,7 +1,9 @@
+import { Features } from "@features";
 import { Button, Typography } from "@mui/material";
-import React from "react";
+import { PumpIDProp } from "@types";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Pompe_State } from "../../../types/types";
 import { format } from "../../../utils/format";
 
 const Container = styled.div`
@@ -18,37 +20,52 @@ const Info = styled.div`
     align-items: start;
 `;
 
-type Props = {
-    setIsDispensing: React.Dispatch<React.SetStateAction<boolean>>;
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>;
-    amountDispensed: number;
-    volumeDispensed: number;
-    selectedVolume?: number;
-    selectedAmount?: number;
-}
+const Ready = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
+    const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
 
-const Ready = ({ setIsDispensing, selectedVolume, selectedAmount, amountDispensed, volumeDispensed, setState }: Props) => {
+    /**
+     * Extracting pump's parameters
+     */
+    const {
+        volumeDispensed,
+        selectedVolume,
+        amountDispensed,
+        selectedAmount
+    } = pump;
 
     /**
      * Dispense du gaz
      */
-    const handleStartPumping = () => {
-        setIsDispensing(true);
-    };
+    const handleStartPumping = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "isDispensing",
+            value: true
+        }));
+    }, [dispatch, pumpID])
 
     /**
      * Arreter de dispenser du gaz
      */
-    const handleStopPumping = () => {
-        setIsDispensing(false);
-    };
+    const handleStopPumping = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "isDispensing",
+            value: false
+        }));
+    }, [dispatch, pumpID]);
 
     /**
      * Si on veut terminer la transaction, on peut passer directement au paiement
      */
-    const endTransaction = () => {
-        setState("selectPaymentMethod");
-    }
+    const endTransaction = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "selectPaymentMethod"
+        }));
+    }, [dispatch, pumpID]);
 
     return (
         <Container>

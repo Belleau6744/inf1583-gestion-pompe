@@ -1,14 +1,44 @@
+import { Features } from "@features";
 import { Button, Typography } from "@mui/material";
-import React from "react";
-import { Pompe_State } from "../../../types/types";
+import { PumpIDProp } from "@types";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>;
-}
+const HomeMenu = ({ pumpID }: PumpIDProp) => {
+    const dispath = useDispatch();
 
-const HomeMenu = (props: Props) => {
-    const { setState } = props;
+    /**
+     * Change pump state to `Selecting Amount to dispense ($)`
+     */
+    const handleGoToSelectAmount = useCallback(() => {
+        dispath(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "selectAmount"
+        }));
+    }, [dispath, pumpID]);
 
+    /**
+     * Change pump state to `Selecting Volume to dispense (L)`
+     */
+    const handleGoToSelectVolume = useCallback(() => {
+        dispath(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "selectVolume"
+        }))
+    }, [dispath, pumpID]);
+    
+    /**
+     * Change pump state to `Selecting fuel grade`
+     */
+    const handleGoToSelectGrade = useCallback(() => {
+        dispath(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "selectGrade"
+        }))
+    }, [dispath, pumpID]);
 
     return (
         <>
@@ -17,21 +47,15 @@ const HomeMenu = (props: Props) => {
                 {/* Choisir un montant ($) */}
                 <Button
                     variant="outlined"
-                    onClick={() => {
-                        setState("selectAmount");
-                    }}>Montant pre-payer</Button>
+                    onClick={handleGoToSelectAmount}>Montant pre-payer</Button>
                 {/* Choisir un volume (L) */}
                 <Button
                     variant="outlined"
-                    onClick={() => {
-                        setState("selectVolume");
-                    }}>Volume pre-payer</Button>
+                    onClick={handleGoToSelectVolume}>Volume pre-payer</Button>
                 {/* Remplissage Libre */}
                 <Button
                     variant="outlined"
-                    onClick={() => {
-                        setState("selectGrade");
-                    }}>Remplissage libre</Button>
+                    onClick={handleGoToSelectGrade}>Remplissage libre</Button>
             </div>
         </>
     )

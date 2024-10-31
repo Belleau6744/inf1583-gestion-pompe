@@ -1,7 +1,7 @@
+import { Features } from "@features";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Features } from "redux/features";
 import styled from "styled-components";
 import Line from "./content/Line";
 import Pompe from "./content/Pompe";

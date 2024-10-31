@@ -1,8 +1,8 @@
+import { Features } from "@features";
 import { Button, Card, Divider, TextField, Typography } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Features } from "redux/features";
 import styled from "styled-components";
 import { ADMIN_USER } from "utils/constants";
 

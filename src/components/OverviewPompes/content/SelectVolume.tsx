@@ -1,27 +1,36 @@
+import { Features } from "@features";
 import { Button, TextField, Typography } from "@mui/material";
-import React, { useRef } from "react";
-import { Pompe_State } from "../../../types/types";
+import { PumpIDProp } from "@types";
+import { useCallback, useRef } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>;
-    setSelectedVolume: React.Dispatch<React.SetStateAction<number | undefined>>;
-
-}
-
-const SelectVolume = ({ setState, setSelectedVolume }: Props) => {
+const SelectVolume = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
     const inputRef = useRef<HTMLInputElement>(null)
 
-    const handleCancel = () => {
-        setState("home")
-    }
+    const handleCancel = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "home"
+        }))
+    }, [dispatch, pumpID]);
 
-    const handleConfirmAmount = () => {
+    const handleConfirmAmount = useCallback(() => {
         const value = Number(inputRef.current?.value);
         if (value && !isNaN(value)) {
-            setSelectedVolume(value);
-            setState("selectGrade");
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "selectedVolume",
+                value: value
+            }));
+            dispatch(Features.GestionPompesFeature.action.updatePump({
+                pumpID: pumpID,
+                parameter: "state",
+                value: "selectGrade"
+            }));
         }
-    }
+    }, [dispatch, pumpID])
 
     return (
         <div>

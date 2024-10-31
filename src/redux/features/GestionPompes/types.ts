@@ -1,8 +1,8 @@
 import { FuelGrade, Pompe_State } from "@types";
 
-type Pompe = {
+export type Pompe = {
     id: string;
-    etat: Pompe_State;
+    state: Pompe_State;
     volumeDispensed: number;
     amountDispensed: number;
     isDispensing: boolean;
@@ -28,3 +28,20 @@ export type GestionPompe = {
     pompes: Pompes;
     reservoirs: Reservoirs;
 }
+
+export type UpdatePumpParam =
+    "state"           |
+    "volumeDispensed" |
+    "amountDispensed" |
+    "isDispensing"    |
+    "fuelGrade"       |
+    "selectedAmount"  |
+    "selectedVolume";
+
+// Define the action payload using mapped types to enforce type constraints
+export type UpdatePumpPayload<K extends keyof Pompe> = {
+    pumpID?: string;
+    parameter: K;
+    value: Pompe[K];
+};
+

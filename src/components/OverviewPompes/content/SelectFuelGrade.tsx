@@ -1,23 +1,37 @@
+import { Features } from "@features";
 import { Button, Typography } from "@mui/material";
-import React from "react";
-import { Pompe_State } from "../../../types/types";
+import { PumpIDProp } from "@types";
+import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 
-type Props = {
-    setState: React.Dispatch<React.SetStateAction<Pompe_State>>;
-    setFuelGrade: React.Dispatch<React.SetStateAction<"regulier" | "premium" | undefined>>;
-}
+const SelectFuelGrade = ({ pumpID }: PumpIDProp) => {
+    const dispatch = useDispatch();
 
-const SelectFuelGrade = ({ setState, setFuelGrade }: Props) => {
+    const selectRegular = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "fuelGrade",
+            value: "regulier"
+        }));
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "ready"
+        }));
+    }, [dispatch, pumpID])
 
-    const selectRegular = () => {
-        setFuelGrade("regulier");
-        setState("ready");
-    }
-
-    const selectPremium = () => {
-        setFuelGrade("premium");
-        setState("ready");
-    }
+    const selectPremium = useCallback(() => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "fuelGrade",
+            value: "premium"
+        }));
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "ready"
+        }));
+    }, [dispatch, pumpID]);
 
     return (
         <div>
