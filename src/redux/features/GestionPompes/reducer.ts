@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "@types";
 import { INITIAL_GESTION_POMPE_DATA } from "../../../data/initialData";
 import { reduceRerservoirFillValue, resetReservoir, updatePump } from "./action";
-import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "./types";
 
 const initialState: GestionPompe = INITIAL_GESTION_POMPE_DATA;
 
