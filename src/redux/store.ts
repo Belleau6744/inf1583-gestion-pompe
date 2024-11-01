@@ -1,8 +1,6 @@
 import { Features } from "@features";
 import { configureStore } from '@reduxjs/toolkit';
-import { GestionPompe } from './features/GestionPompes/types';
-import { RapportOverview } from "./features/Rapports/types";
-import { UserState } from './features/User/types';
+import { GestionPompe, RapportOverview, UserState } from "@types";
 
 export type StoreState = {
     user: UserState;

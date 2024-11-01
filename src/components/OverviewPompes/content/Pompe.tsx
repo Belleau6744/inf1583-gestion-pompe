@@ -1,3 +1,4 @@
+import { DATA } from "@data";
 import { Features } from "@features";
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Card } from "@mui/material";
@@ -5,7 +6,6 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
 import { BasePropsType } from "../../../types/types";
-import { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } from "../../../utils/constants";
 import CreditCard from './CreditCard';
 import HomeMenu from "./HomeMenu";
 import Ready from "./Ready";
@@ -14,6 +14,8 @@ import SelectAmount from "./SelectAmount";
 import SelectFuelGrade from "./SelectFuelGrade";
 import SelectPaymentMethod from './SelectPaymentMethod';
 import SelectVolume from "./SelectVolume";
+
+const { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } = DATA.constants;
 
 type PompeProps = BasePropsType & {
     id: string;

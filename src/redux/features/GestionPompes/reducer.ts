@@ -1,71 +1,9 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
+import { INITIAL_GESTION_POMPE_DATA } from "../../../data/initialData";
 import { reduceRerservoirFillValue, resetReservoir, updatePump } from "./action";
 import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "./types";
 
-const initialState: GestionPompe = { 
-    pompes: {
-        "1": {
-            id: "1",
-            state: "ready",
-            volumeDispensed: 0,
-            amountDispensed: 0,
-            isDispensing: false,
-            fuelGrade: undefined,
-            selectedAmount: undefined,
-            selectedVolume: undefined,
-        },
-        "2": {
-            id: "2",
-            state: "ready",
-            volumeDispensed: 0,
-            amountDispensed: 0,
-            isDispensing: false,
-            fuelGrade: undefined,
-            selectedAmount: undefined,
-            selectedVolume: undefined,
-        },
-        "3": {
-            id: "3",
-            state: "ready",
-            volumeDispensed: 0,
-            amountDispensed: 0,
-            isDispensing: false,
-            fuelGrade: undefined,
-            selectedAmount: undefined,
-            selectedVolume: undefined,
-        },
-        "4": {
-            id: "4",
-            state: "ready",
-            volumeDispensed: 0,
-            amountDispensed: 0,
-            isDispensing: false,
-            fuelGrade: undefined,
-            selectedAmount: undefined,
-            selectedVolume: undefined,
-        },
-        "5": {
-            id: "5",
-            state: "ready",
-            volumeDispensed: 0,
-            amountDispensed: 0,
-            isDispensing: false,
-            fuelGrade: undefined,
-            selectedAmount: undefined,
-            selectedVolume: undefined,
-        }
-    },
-    reservoirs: {
-        "1": {
-            id: "1",
-            fillPercentage: 100
-        },
-        "2": {
-            id: "2",
-            fillPercentage: 100,
-        }
-    }
-}
+const initialState: GestionPompe = INITIAL_GESTION_POMPE_DATA;
 
 const handleReduceRerservoirFillValue = (
     state: GestionPompe,

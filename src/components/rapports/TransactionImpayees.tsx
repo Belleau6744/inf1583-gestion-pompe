@@ -1,5 +1,8 @@
+import { DATA } from "@data";
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+
+const { INITIAL_UNPAID_TRANSACTIONS_DATA } = DATA.initialData;
 
 const columns: GridColDef<(typeof rows)[number]>[] = [
   { field: 'id', headerName: 'ID', width: 90, headerClassName: "custom-header-styling" },
@@ -39,16 +42,7 @@ const columns: GridColDef<(typeof rows)[number]>[] = [
 //     valueGetter: (_value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
 //   },
 
-const rows = [
-  { id: 1, pumpNumber: 0, date: new Date('2024-02-02'), amountUnpaid: 14 },
-  { id: 2, pumpNumber: 4, date: new Date('2024-08-04'), amountUnpaid: 31 },
-  { id: 3, pumpNumber: 2, date: new Date('2024-03-03'), amountUnpaid: 31 },
-  { id: 4, pumpNumber: 1, date: new Date('2024-07-02'), agamountUnpaide: 11 },
-  { id: 5, pumpNumber: 1, date: new Date('2024-02-11'), amountUnpaid: 23 },
-  { id: 6, pumpNumber: 3, date: new Date("2024-06-02"), amountUnpaid: 150 },
-  { id: 7, pumpNumber: 5, date: new Date('2024-02-02'), amountUnpaid: 44 },
-  { id: 8, pumpNumber: 2, date: new Date('2023-01-02'), amountUnpaid: 36 },
-];
+const rows = INITIAL_UNPAID_TRANSACTIONS_DATA;
 
 
 const TransactionsImpayees = () => {

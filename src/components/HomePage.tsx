@@ -1,3 +1,4 @@
+import { DATA } from "@data";
 import { Features } from "@features";
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
@@ -8,7 +9,8 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { ADMIN_USER } from "utils/constants";
+
+const ADMIN_USER = DATA.constants.ADMIN_USER;
 
 const Container = styled.div`
     width: 100vw;
