@@ -25,13 +25,27 @@ export type UserRole = "admin" | "employee";
  * Rapport Feature Types
  */
 export type RowPumpUnpaidTransaction = {
-    id: number;
-    pumpNumber: number;
-    date: Date;
+    id: string;
+    pumpID: string;
+    date: string;
     amountUnpaid: number;   
 }
+
+export type RowPumpTransaction = {
+    id: string;
+    pumpID: string;
+    date: string;
+    amount: number;
+    paid: number;
+    unpaid: number;
+}
+
+
+
 export type UnpaidTransactionsData = RowPumpUnpaidTransaction[];
+export type AllTransactionsData = RowPumpTransaction[];
 export type RapportOverview = {
+    allTransactions: AllTransactionsData;
     unpaidTransactionReport: UnpaidTransactionsData
 }
 /******************************************************************/

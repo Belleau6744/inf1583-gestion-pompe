@@ -1,7 +1,6 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { UserRole } from "@types";
+import { UserRole, UserState } from "@types";
 import { setUserAuthStatus, setUserRole } from './action';
-import { UserState } from "./types";
 
 const initialState: UserState = { 
     isSignedIn: false,     

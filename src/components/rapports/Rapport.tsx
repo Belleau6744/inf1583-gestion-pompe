@@ -1,8 +1,9 @@
-import { Box, Tabs, Tab } from "@mui/material";
+import { Box, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
-import CustomTabPanel from "./CustomTabPanel";
 import styled from "styled-components";
+import CustomTabPanel from "./CustomTabPanel";
 import TransactionsImpayees from "./TransactionImpayees";
+import TransactionsGeneral from "./TransactionsGeneral";
 
 const Container = styled.div`
 `;
@@ -16,18 +17,19 @@ const Rapport = () => {
 
     return (
         <Container>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: "white" }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', backgroundColor: "white", marginTop: "68px" }}>
                 <Tabs value={currentPage} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Item One" />
-                    <Tab label="Item Two" />
+                    <Tab label="Tout" />
+                    <Tab label="Transactions Impayées" />
                     <Tab label="Item Three" />
                 </Tabs>
             </Box>
                 <CustomTabPanel value={currentPage} index={0}>
-                    <TransactionsImpayees />
+                    <TransactionsGeneral/>
                 </CustomTabPanel>
                 <CustomTabPanel value={currentPage} index={1}>
-                    Item Two
+                    
+                    <TransactionsImpayees />
                 </CustomTabPanel>
                 <CustomTabPanel value={currentPage} index={2}>
                     Item Three

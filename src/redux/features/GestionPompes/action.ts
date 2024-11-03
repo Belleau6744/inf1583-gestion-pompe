@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UpdatePumpParam, UpdatePumpPayload } from './types';
+import { UpdatePumpParam, UpdatePumpPayload } from "@types";
 
 /**
  * @param reservoirID - The id of the reservoir that should be impacted

@@ -1,8 +1,8 @@
 import { Features } from "@features";
 import PropaneIcon from '@mui/icons-material/Propane';
+import { BasePropsType } from "@types";
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
-import { BasePropsType } from "../../../types/types";
 
 type ReservoirProps = BasePropsType & {
     id: string;

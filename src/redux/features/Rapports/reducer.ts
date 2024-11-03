@@ -1,9 +1,10 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { addUnpaidTransaction } from "./action";
-import { RapportOverview, RowPumpUnpaidTransaction } from "./types";
+import { RapportOverview, RowPumpTransaction, RowPumpUnpaidTransaction } from "@types";
+import { addTransaction, addUnpaidTransaction } from "./action";
 
 const initialState: RapportOverview = {
-    unpaidTransactionReport: []
+    unpaidTransactionReport: [],
+    allTransactions: []
 }
 
 const handleAddUnpaidTransaction = (
@@ -13,7 +14,15 @@ const handleAddUnpaidTransaction = (
     state.unpaidTransactionReport.push(action.payload);
 }
 
+const handleAddTransaction = (
+    state: RapportOverview,
+    action: PayloadAction<RowPumpTransaction>
+) => {
+    state.allTransactions.push(action.payload);
+}
+
 export const gestionPompesReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(addUnpaidTransaction, handleAddUnpaidTransaction)
+        .addCase(addTransaction, handleAddTransaction)
 })

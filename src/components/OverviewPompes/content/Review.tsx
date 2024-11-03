@@ -4,6 +4,7 @@ import { PumpIDProp } from "@types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { v4 as uuidv4 } from 'uuid';
 
 const Container = styled.div`
     background-color: white;
@@ -21,20 +22,29 @@ const Review = ({ pumpID }: PumpIDProp) => {
      */
     useEffect(() => {
         if (progress <=0) {
+            dispatch(Features.RapportsFeature.action.addTransaction({
+                id: uuidv4(),
+                pumpID: pumpID,
+                date: (new Date()).toString(),
+                amount: amountDispensed,
+                paid: amountDispensed,
+                unpaid: 0,
+                
+            }))
             dispatch(Features.GestionPompesFeature.action.updatePump({
                 pumpID: pumpID,
                 parameter: "state",
                 value: "home"
             }));
         }
-    }, [dispatch, progress, pumpID]);
+    }, [amountDispensed, dispatch, progress, pumpID]);
 
     /**
      * Start timer countdown for page view
      */
     useEffect(() => {
         const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress-1));
+            setProgress((prevProgress) => (prevProgress-10));
         }, 50);
         return () => {
             clearInterval(timer);

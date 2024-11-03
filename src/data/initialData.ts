@@ -4,7 +4,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
     pompes: {
         "1": {
             id: "1",
-            state: "ready",
+            state: "home",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -14,7 +14,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         },
         "2": {
             id: "2",
-            state: "ready",
+            state: "home",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -24,7 +24,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         },
         "3": {
             id: "3",
-            state: "ready",
+            state: "home",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -34,7 +34,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         },
         "4": {
             id: "4",
-            state: "ready",
+            state: "home",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -44,7 +44,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         },
         "5": {
             id: "5",
-            state: "ready",
+            state: "home",
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -66,12 +66,12 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
 }
 
 export const INITIAL_UNPAID_TRANSACTIONS_DATA: RowPumpUnpaidTransaction[] = [
-    { id: 1, pumpNumber: 0, date: new Date('2024-02-02'), amountUnpaid: 14 },
-    { id: 2, pumpNumber: 4, date: new Date('2024-08-04'), amountUnpaid: 31 },
-    { id: 3, pumpNumber: 2, date: new Date('2024-03-03'), amountUnpaid: 31 },
-    { id: 4, pumpNumber: 1, date: new Date('2024-07-02'), amountUnpaid: 11 },
-    { id: 5, pumpNumber: 1, date: new Date('2024-02-11'), amountUnpaid: 23 },
-    { id: 6, pumpNumber: 3, date: new Date("2024-06-02"), amountUnpaid: 150 },
-    { id: 7, pumpNumber: 5, date: new Date('2024-02-02'), amountUnpaid: 44 },
-    { id: 8, pumpNumber: 2, date: new Date('2023-01-02'), amountUnpaid: 36 },
+    { id: "1", pumpID: "1", date: new Date('2024-02-02'), amountUnpaid: 14 },
+    { id: "2", pumpID: "2", date: new Date('2024-08-04'), amountUnpaid: 31 },
+    { id: "3", pumpID: "3", date: new Date('2024-03-03'), amountUnpaid: 31 },
+    { id: "4", pumpID: "4", date: new Date('2024-07-02'), amountUnpaid: 11 },
+    { id: "5", pumpID: "5", date: new Date('2024-02-11'), amountUnpaid: 23 },
+    { id: "6", pumpID: "6", date: new Date("2024-06-02"), amountUnpaid: 150 },
+    { id: "7", pumpID: "7", date: new Date('2024-02-02'), amountUnpaid: 44 },
+    { id: "8", pumpID: "8", date: new Date('2023-01-02'), amountUnpaid: 36 },
 ]
