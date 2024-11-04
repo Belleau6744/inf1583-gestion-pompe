@@ -66,12 +66,12 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
 }
 
 export const INITIAL_UNPAID_TRANSACTIONS_DATA: RowPumpUnpaidTransaction[] = [
-    { id: "1", pumpID: "1", date: new Date('2024-02-02'), amountUnpaid: 14 },
-    { id: "2", pumpID: "2", date: new Date('2024-08-04'), amountUnpaid: 31 },
-    { id: "3", pumpID: "3", date: new Date('2024-03-03'), amountUnpaid: 31 },
-    { id: "4", pumpID: "4", date: new Date('2024-07-02'), amountUnpaid: 11 },
-    { id: "5", pumpID: "5", date: new Date('2024-02-11'), amountUnpaid: 23 },
-    { id: "6", pumpID: "6", date: new Date("2024-06-02"), amountUnpaid: 150 },
-    { id: "7", pumpID: "7", date: new Date('2024-02-02'), amountUnpaid: 44 },
-    { id: "8", pumpID: "8", date: new Date('2023-01-02'), amountUnpaid: 36 },
+    { id: "1", pumpID: "1", date: '2024-02-02', amountUnpaid: 14 },
+    { id: "2", pumpID: "2", date: '2024-08-04', amountUnpaid: 31 },
+    { id: "3", pumpID: "3", date: '2024-03-03', amountUnpaid: 31 },
+    { id: "4", pumpID: "4", date: '2024-07-02', amountUnpaid: 11 },
+    { id: "5", pumpID: "5", date: '2024-02-11', amountUnpaid: 23 },
+    { id: "6", pumpID: "6", date: "2024-06-02", amountUnpaid: 150 },
+    { id: "7", pumpID: "7", date: '2024-02-02', amountUnpaid: 44 },
+    { id: "8", pumpID: "8", date: '2023-01-02', amountUnpaid: 36 },
 ]
