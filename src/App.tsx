@@ -1,7 +1,7 @@
 import { Features } from "@features";
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
 import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
@@ -11,7 +11,7 @@ import Rapport from './components/rapports/Rapport';
 function App() {
 
   /** App Layout Structure */
-const Layout = () => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const isUserConected = useSelector(Features.UserFeature.selector.isUserSignedIn);
   
@@ -23,52 +23,31 @@ const Layout = () => {
   }
 
   return (
-      <>
-        <AppBar>
-          <Toolbar variant="dense">
-            <div style={{ display: 'flex', flex: '1'}}>
-              <Link to={"/pompes"}><Typography sx={{ padding: '20px', color: "white !important" }} component="div">Overview</Typography></Link>
-              <Link to={"/rapports"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Rapports</Typography></Link>
-              <Link to={"/comptes"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Comptes</Typography></Link>
-              <Link to={"/pompeIndividuelle"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Pompe</Typography></Link>
-              
-            </div>
-            {isUserConected && <Link to={"/"}><Button variant='outlined' size='small' onClick={handleLogout} sx={{ padding: '12px', color:"black !important", backgroundColor: "white" }} component="div">Déconnexion</Button></Link>}
-          </Toolbar>
-        </AppBar>
-        <Outlet />
-      </>
+    <AppBar>
+      <Toolbar variant="dense">
+        <div style={{ display: 'flex', flex: '1'}}>
+          <Link to={"/pompes"}><Typography sx={{ padding: '20px', color: "white !important" }} component="div">Overview</Typography></Link>
+          <Link to={"/rapports"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Rapports</Typography></Link>
+          <Link to={"/comptes"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Comptes</Typography></Link>
+          <Link to={"/pompeIndividuelle"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Pompe</Typography></Link>
+          
+        </div>
+        {isUserConected && <Link to={"/"}><Button variant='outlined' size='small' onClick={handleLogout} sx={{ padding: '12px', color:"black !important", backgroundColor: "white" }} component="div">Déconnexion</Button></Link>}
+      </Toolbar>
+    </AppBar>
   );
 };
 
-const router = createBrowserRouter([
-  {
-    element: <Layout/>,
-    path: "/",
-    children: [
-      {
-        path:"/",
-        element: <HomePage />
-      },
-      {
-        path: "/rapports",
-        element: <Rapport />
-      },
-      {
-        path: "/pompes",
-        element:<OverviewPompes />
-      },
-      {
-        path: "/pompeIndividuelle",
-        element: <PompeView />
-
-      }
-    ]
-  },
-]);
-
   return (
-    <RouterProvider router={router}/>
+    <BrowserRouter basename='/inf1583-gestion-pompe'>
+      <NavBar/>
+      <Routes>
+        <Route path='/' element={<HomePage />}/>
+        <Route path='/rapports' element={<Rapport />}/>
+        <Route path='/pompes' element={<OverviewPompes />}/>
+        <Route path='/pompeIndividuelle' element={<PompeView />}/>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
