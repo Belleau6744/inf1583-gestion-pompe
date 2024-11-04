@@ -1,7 +1,7 @@
 import { Features } from "@features";
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
 import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
@@ -46,6 +46,7 @@ const NavBar = () => {
         <Route path='/rapports' element={<Rapport />}/>
         <Route path='/pompes' element={<OverviewPompes />}/>
         <Route path='/pompeIndividuelle' element={<PompeView />}/>
+        <Route path='*' element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   )
