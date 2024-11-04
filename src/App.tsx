@@ -5,6 +5,7 @@ import { createBrowserRouter, Link, Outlet, RouterProvider } from 'react-router-
 import './App.css';
 import HomePage from './components/HomePage';
 import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
+import PompeView from "./components/pompe/PompeView";
 import Rapport from './components/rapports/Rapport';
 
 function App() {
@@ -29,6 +30,8 @@ const Layout = () => {
               <Link to={"/pompes"}><Typography sx={{ padding: '20px', color: "white !important" }} component="div">Overview</Typography></Link>
               <Link to={"/rapports"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Rapports</Typography></Link>
               <Link to={"/comptes"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Comptes</Typography></Link>
+              <Link to={"/pompeIndividuelle"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Pompe</Typography></Link>
+              
             </div>
             {isUserConected && <Link to={"/"}><Button variant='outlined' size='small' onClick={handleLogout} sx={{ padding: '12px', color:"black !important", backgroundColor: "white" }} component="div">Déconnexion</Button></Link>}
           </Toolbar>
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/pompes",
         element:<OverviewPompes />
+      },
+      {
+        path: "/pompeIndividuelle",
+        element: <PompeView />
 
       }
     ]

@@ -14,3 +14,5 @@ export const reduceRerservoirFillValue = createAction<{ reservoirID: string,  va
 export const resetReservoir = createAction<{ reservoirID?: string }>('gestionPompe/resetReservoir');
 
 export const updatePump = createAction<UpdatePumpPayload<UpdatePumpParam>>('gestionPompe/updatePump');
+
+export const resetPumpByID = createAction<{ pumpID: string }>('gestionPompe/resetPumpByID');

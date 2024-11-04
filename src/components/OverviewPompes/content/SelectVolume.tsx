@@ -1,4 +1,5 @@
 import { Features } from "@features";
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import { Button, TextField, Typography } from "@mui/material";
 import { PumpIDProp } from "@types";
 import { useCallback, useRef } from "react";
@@ -35,7 +36,13 @@ const SelectVolume = ({ pumpID }: PumpIDProp) => {
     return (
         <div>
             <Typography>Please enter a volume (L)</Typography>
-            <TextField type="number" inputRef={inputRef}></TextField>
+            <TextField
+                slotProps={{ input: {
+                    startAdornment: <WaterDropIcon/>
+                }}}
+                fullWidth
+                type="number"
+                inputRef={inputRef}></TextField>
             <div style={{ padding: '12px', display: 'flex', justifyContent: 'space-between' }}>
                 <Button color="warning" variant="contained" onClick={handleCancel}>Back</Button>
                 <Button variant="contained" onClick={handleConfirmAmount}>Enter</Button>

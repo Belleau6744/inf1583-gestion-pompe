@@ -1,4 +1,5 @@
 import { Features } from "@features";
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { Button, TextField, Typography } from "@mui/material";
 import { PumpIDProp } from "@types";
 import { useCallback, useRef } from "react";
@@ -41,7 +42,11 @@ const SelectAmount = ({ pumpID }: PumpIDProp) => {
     return (
         <div>
             <Typography>Please enter an amount ($)</Typography>
-            <TextField type="number" inputRef={inputRef}></TextField>
+            <TextField slotProps={{
+                input: { 
+                    startAdornment: <AttachMoneyIcon />
+                }
+            }} fullWidth type="number" inputRef={inputRef}></TextField>
             <div style={{ padding: '12px', display: 'flex', justifyContent: 'space-between' }}>
                 <Button color="warning" variant="contained" onClick={handleCancel}>Back</Button>
                 <Button variant="contained" onClick={handleConfirmAmount}>Enter</Button>

@@ -18,6 +18,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    gap: 50px;
     height: 100%;
 `;
 
@@ -70,7 +71,7 @@ const CreditCard = ({ pumpID }: PumpIDProp) => {
 
     return (
         <Container>
-            <TextField helperText={hasError ? "WRONG PIN" : ""} error={hasError} value={cardNum} sx={{ height: '30px' }} aria-readonly slotProps={{input: { readOnly: true}}}/>
+            <TextField fullWidth helperText={hasError ? "WRONG PIN" : ""} error={hasError} value={cardNum} sx={{ height: '30px' }} aria-readonly slotProps={{input: { readOnly: true}}}/>
 
             <Grid container spacing={2}>
                 <Grid size={4}>

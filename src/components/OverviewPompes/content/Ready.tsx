@@ -6,6 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { format } from "../../../utils/format";
 
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 30px;
+`;
+
 const Container = styled.div`
     display: flex;
     justify-content: space-between;
@@ -31,6 +38,7 @@ const Ready = ({ pumpID }: PumpIDProp) => {
         volumeDispensed,
         selectedVolume,
         amountDispensed,
+        isDispensing,
         selectedAmount
     } = pump;
 
@@ -70,11 +78,13 @@ const Ready = ({ pumpID }: PumpIDProp) => {
     return (
         <Container>
             <Info>
-                <Typography variant="h6">Volume: {volumeDispensed}L {selectedVolume ? (` / ${selectedVolume}L`): ("")}</Typography>
-                <Typography variant="h6">Montant: {format(amountDispensed)} {selectedAmount ? (` / ${selectedAmount}$`): ("")}</Typography>
+                <Typography sx={{ color: isDispensing ? "white" : "unset" }} variant="h6">Volume: {volumeDispensed}L {selectedVolume ? (` / ${selectedVolume}L`): ("")}</Typography>
+                <Typography sx={{ color: isDispensing ? "white" : "unset" }} variant="h6">Montant: {format(amountDispensed)} {selectedAmount ? (` / ${selectedAmount}$`): ("")}</Typography>
             </Info>
-            <Button variant="contained" color="success" onMouseUp={handleStopPumping} onMouseDown={handleStartPumping}>Dispense (hold)</Button>
-            <Button variant="contained" color="error" onClick={endTransaction}>Terminer Transaction</Button>
+            <ButtonContainer>
+                <Button size="large" variant="contained" color="success" onMouseUp={handleStopPumping} onMouseDown={handleStartPumping}>Dispense (hold)</Button>
+                <Button size="large" variant="contained" color="error" onClick={endTransaction}>Terminer Transaction</Button>
+            </ButtonContainer>
         </Container>
     )
 }

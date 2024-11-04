@@ -31,11 +31,7 @@ const Review = ({ pumpID }: PumpIDProp) => {
                 unpaid: 0,
                 
             }))
-            dispatch(Features.GestionPompesFeature.action.updatePump({
-                pumpID: pumpID,
-                parameter: "state",
-                value: "home"
-            }));
+            dispatch(Features.GestionPompesFeature.action.resetPumpByID({ pumpID: pumpID }));
         }
     }, [amountDispensed, dispatch, progress, pumpID]);
 

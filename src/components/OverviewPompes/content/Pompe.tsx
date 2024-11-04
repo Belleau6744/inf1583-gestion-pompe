@@ -26,15 +26,21 @@ const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
         backgroundColor: props.$isPumping ? "blue" : "#fff"
     },
   }))`
-    width: 300px;
-    height: 300px;
+    width: 500px;
+    height: 400px;
     position: absolute;
     display: flex;
     flex-direction: column;
     border: 2px solid black;
     padding: 15px;
     box-sizing: border-box;
-  `
+`;
+
+const ContentWrapper = styled.div`
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+`;
 
 const Pompe = ({ id, className }: PompeProps) => {
     const dispatch = useDispatch();
@@ -202,8 +208,11 @@ const Pompe = ({ id, className }: PompeProps) => {
 
     return (
         <Container elevation={24} $isPumping={isDispensing} className={className}>
-            <LocalGasStationIcon/>
-            {CurrentState}
+            <LocalGasStationIcon sx={{ color: isDispensing ? "white" : "unset" }}/>
+            <ContentWrapper>
+                {CurrentState}
+            </ContentWrapper>
+            
         </Container>
     );
 };

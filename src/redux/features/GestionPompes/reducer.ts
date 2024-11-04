@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "@types";
 import { INITIAL_GESTION_POMPE_DATA } from "../../../data/initialData";
-import { reduceRerservoirFillValue, resetReservoir, updatePump } from "./action";
+import { reduceRerservoirFillValue, resetPumpByID, resetReservoir, updatePump } from "./action";
 
 const initialState: GestionPompe = INITIAL_GESTION_POMPE_DATA;
 
@@ -45,6 +45,22 @@ const handleUpdatePump = <K extends UpdatePumpParam>(
     }
 };
 
+const handleResetPumpByID = (
+    state: GestionPompe,
+    action: PayloadAction<{ pumpID: string }>
+) => {
+    state.pompes[action.payload.pumpID] = {
+        id: action.payload.pumpID,
+        state: "home",
+        volumeDispensed: 0,
+        amountDispensed: 0,
+        isDispensing: false,
+        fuelGrade: undefined,
+        selectedAmount: undefined,
+        selectedVolume: undefined
+    }
+}
+
 
 
 export const gestionPompesReducer = createReducer(initialState, (builder) => {
@@ -52,6 +68,7 @@ export const gestionPompesReducer = createReducer(initialState, (builder) => {
         .addCase(reduceRerservoirFillValue, handleReduceRerservoirFillValue)
         .addCase(resetReservoir, handleResetReservoir)
         .addCase(updatePump, handleUpdatePump)
+        .addCase(resetPumpByID ,handleResetPumpByID)
         
         
 })
