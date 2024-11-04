@@ -5,7 +5,7 @@ import { Paper, TextField } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { PumpIDProp } from '@types';
 import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Item = styled(Paper)`
@@ -23,21 +23,39 @@ const Container = styled.div`
 
 const CreditCard = ({ pumpID }: PumpIDProp) => {
     const dispatch = useDispatch();
+    const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
+    const { amountDispensed, volumeDispensed } = pump;
     const [ cardNum, setCardNum ] = useState<string>("");
     const [ hasError, setHasError ] = useState<boolean>(false);
 
 
-    const handleGoToReview = useCallback(() => {
+    const submitPin = useCallback(() => {
+        // TODO - improve check
         if (cardNum.length === 4) {
-            dispatch(Features.GestionPompesFeature.action.updatePump({
-                pumpID: pumpID,
-                parameter: "state",
-                value: "review"
-            }));
+            if (amountDispensed > 0 && volumeDispensed > 0) {
+                // If already dispensed, transaction is done
+                dispatch(Features.GestionPompesFeature.action.updatePump({
+                    pumpID: pumpID,
+                    parameter: "state",
+                    value: "review"
+                }));
+            } else {
+                // If nothing has been dispensed, user is pre-paying
+                // Should now dispense
+                dispatch(Features.GestionPompesFeature.action.updatePump({
+                    pumpID: pumpID,
+                    parameter: "state",
+                    value: "selectGrade"
+                }))
+
+            }
+
+
+            
         } else {
             setHasError(true);
         }
-    }, [cardNum.length, dispatch, pumpID]);
+    }, [amountDispensed, cardNum.length, dispatch, pumpID, volumeDispensed]);
 
     const handleInputChange = useCallback(() => {
         setHasError(false);
@@ -80,7 +98,7 @@ const CreditCard = ({ pumpID }: PumpIDProp) => {
                     <Item onClick={handleInputChange}>0</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleGoToReview}><DoneIcon/></Item>
+                    <Item onClick={submitPin}><DoneIcon/></Item>
                 </Grid>
             </Grid>
         </Container>

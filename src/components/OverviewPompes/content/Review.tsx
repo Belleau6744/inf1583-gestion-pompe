@@ -44,7 +44,7 @@ const Review = ({ pumpID }: PumpIDProp) => {
      */
     useEffect(() => {
         const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress-10));
+            setProgress((prevProgress) => (prevProgress-1));
         }, 50);
         return () => {
             clearInterval(timer);

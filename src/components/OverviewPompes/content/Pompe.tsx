@@ -56,7 +56,7 @@ const Pompe = ({ id, className }: PompeProps) => {
      * Verifier si on atteint la limite (montant/volume)
      */
     useEffect(() => {
-        if (selectedVolume && volumeDispensed > selectedVolume) {
+        if (selectedVolume && (volumeDispensed > selectedVolume)) {
             dispatch(Features.GestionPompesFeature.action.updatePump({
                 pumpID: id,
                 parameter: "isDispensing",
