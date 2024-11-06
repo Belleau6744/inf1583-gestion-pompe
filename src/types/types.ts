@@ -114,6 +114,8 @@ export type ParametresType = {
     prixRegulier: number;
     /** Prix de l'essence premium ($/L) */
     prixPremium: number;
+    /** Taxe Provinciale (c$/L) */
+    taxe: number;
     /** Nombre d'unite de volume dipense par interval */
     vitesseDistribution: number;
     /** Interval de temps pour la distribution (ms)  */

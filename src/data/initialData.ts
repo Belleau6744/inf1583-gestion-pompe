@@ -80,6 +80,7 @@ export const PARAMETRES_INITIAUX: ParametresType = {
     prixRegulier: 1.45,
     prixPremium: 1.68,
     vitesseDistribution: 0.01,
+    taxe: 0.1920,
     intervalDistribution: 25,
     utilisateurAdmin: {
         username: "admin",

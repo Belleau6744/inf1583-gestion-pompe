@@ -6,11 +6,12 @@ import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-const EMPTY_STATE = {
+const EMPTY_STATE: ParametresType = {
     prixRegulier: 0,
     prixPremium: 0,
     vitesseDistribution: 0,
     intervalDistribution: 0,
+    taxe: 0,
     utilisateurAdmin: {
         username: "",
         motDePasse: ""

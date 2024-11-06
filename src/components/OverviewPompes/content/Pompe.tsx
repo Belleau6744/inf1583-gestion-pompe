@@ -43,7 +43,7 @@ const Pompe = ({ id, className }: PompeProps) => {
     const dispatch = useDispatch();
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id));
     const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
-    const { prixRegulier, prixPremium, vitesseDistribution, intervalDistribution } = params;
+    const { prixRegulier, prixPremium, vitesseDistribution, intervalDistribution, taxe } = params;
     
     /** Informations contenues dans une pompe */
     const {
@@ -99,7 +99,7 @@ const Pompe = ({ id, className }: PompeProps) => {
             price = prixPremium;
         }
         if (price > 0) {
-            const amount = volumeDispensed*price;
+            const amount = volumeDispensed*price*taxe;
             const amountFormated = parseFloat(amount.toFixed(2));
             dispatch(
                 Features
@@ -112,7 +112,7 @@ const Pompe = ({ id, className }: PompeProps) => {
                 })
             );
         }
-    }, [dispatch, fuelGrade, id, prixPremium, prixRegulier, volumeDispensed])
+    }, [dispatch, fuelGrade, id, prixPremium, prixRegulier, taxe, volumeDispensed])
 
     /**
      * When Pumping, dispense 1unit of volume per second

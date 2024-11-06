@@ -1,7 +1,8 @@
 import { Features } from "@features";
 import { AppBar, Button, Toolbar, Typography } from '@mui/material';
+import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Link, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import HomePage from './components/HomePage';
 import OverviewPompes from "./components/OverviewPompes/OverviewPompes";
@@ -14,6 +15,7 @@ function App() {
   /** App Layout Structure */
 const NavBar = () => {
   const dispatch = useDispatch();
+  const nav = useNavigate();
   const isUserConected = useSelector(Features.UserFeature.selector.isUserSignedIn);
   
   /**
@@ -22,6 +24,12 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(Features.UserFeature.action.setUserAuthStatus(false));
   }
+
+  useEffect(() => {
+    if (!isUserConected) {
+      nav("/");
+    }
+  }, [isUserConected, nav]);
 
   return (
     <AppBar>
