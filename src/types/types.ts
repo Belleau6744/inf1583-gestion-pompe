@@ -104,3 +104,23 @@ export type UserState = {
     isSignedIn: boolean;
     userRole: UserRole | undefined;
 }
+
+/******************************************************************/
+/**
+ * Parametres Generaux
+ */
+export type ParametresType = {
+    /** Prix de l'essence reguliere ($/L) */
+    prixRegulier: number;
+    /** Prix de l'essence premium ($/L) */
+    prixPremium: number;
+    /** Nombre d'unite de volume dipense par interval */
+    vitesseDistribution: number;
+    /** Interval de temps pour la distribution (ms)  */
+    intervalDistribution: number;
+    /* Information de connexion pour le compte admin */
+    utilisateurAdmin: {
+       username: string;
+        motDePasse: string;
+    }
+}

@@ -1,4 +1,3 @@
-import { DATA } from "@data";
 import { Features } from "@features";
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Card } from "@mui/material";
@@ -14,8 +13,6 @@ import SelectAmount from "./SelectAmount";
 import SelectFuelGrade from "./SelectFuelGrade";
 import SelectPaymentMethod from './SelectPaymentMethod';
 import SelectVolume from "./SelectVolume";
-
-const { DISPENSING_SPEED, DISPENSING_TIME, PREMIUM_PRICE, REGULAR_PRICE } = DATA.constants;
 
 type PompeProps = BasePropsType & {
     id: string;
@@ -45,6 +42,8 @@ const ContentWrapper = styled.div`
 const Pompe = ({ id, className }: PompeProps) => {
     const dispatch = useDispatch();
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id));
+    const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
+    const { prixRegulier, prixPremium, vitesseDistribution, intervalDistribution } = params;
     
     /** Informations contenues dans une pompe */
     const {
@@ -94,10 +93,10 @@ const Pompe = ({ id, className }: PompeProps) => {
     useEffect(() => {
         let price = 0;
         if (fuelGrade === "regulier") {
-            price = REGULAR_PRICE;
+            price = prixRegulier;
         }
         if (fuelGrade === "premium") {
-            price = PREMIUM_PRICE;
+            price = prixPremium;
         }
         if (price > 0) {
             const amount = volumeDispensed*price;
@@ -113,7 +112,7 @@ const Pompe = ({ id, className }: PompeProps) => {
                 })
             );
         }
-    }, [dispatch, fuelGrade, id, volumeDispensed])
+    }, [dispatch, fuelGrade, id, prixPremium, prixRegulier, volumeDispensed])
 
     /**
      * When Pumping, dispense 1unit of volume per second
@@ -129,7 +128,7 @@ const Pompe = ({ id, className }: PompeProps) => {
                         .action
                         .reduceRerservoirFillValue({
                             reservoirID: "2",
-                            value: DISPENSING_SPEED
+                            value: vitesseDistribution
                         }
                     ))
                 }
@@ -140,12 +139,12 @@ const Pompe = ({ id, className }: PompeProps) => {
                         .action
                         .reduceRerservoirFillValue({
                             reservoirID: "1",
-                            value: DISPENSING_SPEED
+                            value: vitesseDistribution
                         }
                     ))
                 }
 
-                const newValue = volumeDispensed + DISPENSING_SPEED;
+                const newValue = volumeDispensed + vitesseDistribution;
                 dispatch(
                     Features
                     .GestionPompesFeature
@@ -156,14 +155,14 @@ const Pompe = ({ id, className }: PompeProps) => {
                         value: parseFloat(newValue.toFixed(2))
                     })
                 );
-            }, DISPENSING_TIME);
+            }, intervalDistribution);
         }
         return () => {
             if (timerId) {
                 clearInterval(timerId);
             }
         };
-    }, [dispatch, fuelGrade, id, isDispensing, volumeDispensed]);
+    }, [dispatch, fuelGrade, id, intervalDistribution, isDispensing, vitesseDistribution, volumeDispensed]);
 
     const CurrentState = useMemo(() => {
         switch(state) {

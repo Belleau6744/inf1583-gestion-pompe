@@ -1,4 +1,3 @@
-import { DATA } from "@data";
 import { Features } from "@features";
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
@@ -6,11 +5,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Button, Card, Divider, IconButton, TextField, Typography } from "@mui/material";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
-const ADMIN_USER = DATA.constants.ADMIN_USER;
 
 const Container = styled.div`
     width: 100vw;
@@ -20,6 +17,8 @@ const Container = styled.div`
 const HomePage = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
+    const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
+    const { utilisateurAdmin } = params;
     const inputRef = useRef<HTMLFormElement>(null);
     const [ username, setUsername ] = useState<string>("");
     const [ password, setPassword ] = useState<string>("");
@@ -40,7 +39,7 @@ const HomePage = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.stopPropagation();
-        if (username === ADMIN_USER.username && password === ADMIN_USER.password) {
+        if (username === utilisateurAdmin.username && password === utilisateurAdmin.motDePasse) {
             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
             nav("/pompes");
         }
