@@ -11,24 +11,24 @@ import Reservoir from "./Reservoir";
 
 const POSITON_POMPES = {
     one: {
-      top: 50,
-      left: 5
+	  top: 48,
+      left: 3
     },
     two: {
-      top: 50,
-      left: 25
+	  top: 45,
+      left: 24
     },
     three: {
-      top: 50,
-      left: 45
+      top: 45,
+      left: 43
     },
     four: {
-      top: 50,
-      left: 65
+	  top: 45,
+      left: 63
     },
     five: {
-      top: 50,
-      left: 90
+	  top: 48,
+      left: 87
     }
   }
   
