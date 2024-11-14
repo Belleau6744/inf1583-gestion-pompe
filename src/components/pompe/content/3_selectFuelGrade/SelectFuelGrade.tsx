@@ -24,7 +24,7 @@ const SelectFuelGrade = ({ pumpID }: PumpIDProp) => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
             parameter: "state",
-            value: "ready"
+            value: "distribution"
         }));
     }, [dispatch, pumpID])
 
@@ -37,7 +37,7 @@ const SelectFuelGrade = ({ pumpID }: PumpIDProp) => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
             parameter: "state",
-            value: "ready"
+            value: "distribution"
         }));
     }, [dispatch, pumpID]);
 

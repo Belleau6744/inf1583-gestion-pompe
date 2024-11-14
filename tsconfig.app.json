@@ -9,7 +9,8 @@
     "paths": {
       "@types": ["types/types"],
       "@features": ["redux/features"],
-      "@data": ["data"]
+      "@data": ["data"],
+      "@utils": ["utils"]
     },
 
     /* Bundler mode */

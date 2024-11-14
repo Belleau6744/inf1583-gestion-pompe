@@ -126,11 +126,11 @@ const OverviewPompes = () => {
             <Line color={isReservoir2Low ? "red" : "black"} point1={POSITON_POMPES.four} point2={POSITION_RESERVOIR.two}/>
             <Line color={isReservoir2Low ? "red" : "black"} point1={POSITON_POMPES.five} point2={POSITION_RESERVOIR.two}/>
 
-            <PompeSimpleView xPosition={POSITON_POMPES.one.left} yPosition={POSITON_POMPES.one.top}/>
-            <PompeSimpleView xPosition={POSITON_POMPES.two.left} yPosition={POSITON_POMPES.two.top}/>
-            <PompeSimpleView xPosition={POSITON_POMPES.three.left} yPosition={POSITON_POMPES.three.top}/>
-            <PompeSimpleView xPosition={POSITON_POMPES.four.left} yPosition={POSITON_POMPES.four.top}/>
-            <PompeSimpleView xPosition={POSITON_POMPES.five.left} yPosition={POSITON_POMPES.five.top}/>
+            <PompeSimpleView id={"1"} xPosition={POSITON_POMPES.one.left} yPosition={POSITON_POMPES.one.top}/>
+            <PompeSimpleView id={"2"} xPosition={POSITON_POMPES.two.left} yPosition={POSITON_POMPES.two.top}/>
+            <PompeSimpleView id={"3"} xPosition={POSITON_POMPES.three.left} yPosition={POSITON_POMPES.three.top}/>
+            <PompeSimpleView id={"4"} xPosition={POSITON_POMPES.four.left} yPosition={POSITON_POMPES.four.top}/>
+            <PompeSimpleView id={"5"} xPosition={POSITON_POMPES.five.left} yPosition={POSITON_POMPES.five.top}/>
 
 			<OptionsMenu>
 				<InputLabel sx={InputLabelStyled}>

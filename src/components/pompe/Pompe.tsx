@@ -206,7 +206,7 @@ const Pompe = ({ id, className }: PompeProps) => {
                 return (
                     <SelectFuelGrade pumpID={id} />
                 )
-            case "ready":
+            case "distribution":
                 return (
                     <Ready pumpID={id} />
                 )

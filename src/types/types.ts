@@ -7,7 +7,7 @@ export type PumpIDProp = {
 }
 
 export type Pompe_State = 
-    "ready"                    |
+    "distribution"             |
     "home"                     |
     "selectMode"               | 
     "selectAmount"             |
