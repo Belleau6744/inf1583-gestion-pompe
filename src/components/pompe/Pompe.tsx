@@ -5,17 +5,17 @@ import { BasePropsType } from "@types";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
-import ConnectionClient from "./ConnectionClient";
-import CreditCard from './CreditCard';
-import HomeMenu from "./HomeMenu";
-import Ready from "./Ready";
-import Review from './Review';
-import ReviewCompteClient from "./ReviewCompteClient";
-import SelectAmount from "./SelectAmount";
-import SelectFuelGrade from "./SelectFuelGrade";
-import SelectMode from "./SelectMode";
-import SelectPaymentMethod from './SelectPaymentMethod';
-import SelectVolume from "./SelectVolume";
+import HomeMenu from "./content/1_Home/HomeMenu";
+import SelectAmount from "./content/2_selectDispensingMethod/SelectAmount";
+import SelectMode from "./content/2_selectDispensingMethod/SelectMode";
+import SelectVolume from "./content/2_selectDispensingMethod/SelectVolume";
+import SelectFuelGrade from "./content/3_selectFuelGrade/SelectFuelGrade";
+import Ready from "./content/4_dispensing/Ready";
+import CreditCard from './content/5_payment/CreditCard';
+import ReviewCompteClient from "./content/5_payment/ReviewCompteClient";
+import SelectPaymentMethod from './content/5_payment/SelectPaymentMethod';
+import Review from './content/6_review/Review';
+import ConnectionClient from "./content/ConnectionClient";
 
 const Header = styled.div`
     display: flex;
@@ -118,7 +118,8 @@ const Pompe = ({ id, className }: PompeProps) => {
             price = prixPremium;
         }
         if (price > 0) {
-            const amount = volumeDispensed*price*taxe;
+            const grossCost = volumeDispensed*price;
+            const amount = (grossCost) + (grossCost * taxe);
             const amountFormated = parseFloat(amount.toFixed(2));
             dispatch(
                 Features
@@ -240,7 +241,7 @@ const Pompe = ({ id, className }: PompeProps) => {
         <Container elevation={24} $isPumping={isDispensing} className={className}>
             <Header>
                 <LocalGasStationIcon fontSize="large" sx={{ color: isDispensing ? "white" : "unset" }}/>
-                <Typography variant="h4">{`Pompe: ${id} - ${pumpType}`}</Typography>
+                <Typography sx={{ color: isDispensing ? "white" : "unset" }} variant="h4">{`Pompe: ${id} - ${pumpType}`}</Typography>
             </Header>
             
             <ContentWrapper>

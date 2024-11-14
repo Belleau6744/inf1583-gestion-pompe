@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import { PumpIDProp } from "@types";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { format } from "../../../utils/format";
+import { format } from "../../../../utils/format";
 
 const SelectPaymentMethod = ({ pumpID }: PumpIDProp) => {
     const dispatch = useDispatch();

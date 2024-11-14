@@ -41,7 +41,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "4": {
             id: "4",
             state: "home",
-            pumpType: "sophisticated",
+            pumpType: "sophistiquee",
             isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,
@@ -53,7 +53,7 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "5": {
             id: "5",
             state: "home",
-            pumpType: "sophisticated",
+            pumpType: "sophistiquee",
             isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,

@@ -58,7 +58,7 @@ const SelectMode = ({ pumpID }: PumpIDProp) => {
                         variant="outlined"
                         onClick={handleGoToSelectGrade}>Remplissage libre</Button>
                 )
-            case "sophisticated":
+            case "sophistiquee":
                 return (
                     <>
                         {/* Choisir un montant ($) */}

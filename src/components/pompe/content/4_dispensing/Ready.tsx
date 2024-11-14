@@ -4,7 +4,7 @@ import { PumpIDProp } from "@types";
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { format } from "../../../utils/format";
+import { format } from "../../../../utils/format";
 
 const ButtonContainer = styled.div`
     display: flex;

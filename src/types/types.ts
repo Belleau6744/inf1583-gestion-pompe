@@ -56,7 +56,7 @@ export type RapportOverview = {
  */
 export type Pompe = {
     id: string;
-    pumpType: "normal" | "sophisticated"
+    pumpType: "normal" | "sophistiquee"
     isActive: boolean;
     state: Pompe_State;
     volumeDispensed: number;
