@@ -44,9 +44,11 @@ const PompeView = () => {
                     label="Choose a pump"
                     onChange={handleOnChange}
                 >
-                    <MenuItem value={"1"}>ID: "1"</MenuItem>
-                    <MenuItem value={"2"}>ID: "2"</MenuItem>
-                    <MenuItem value={"3"}>ID: "3"</MenuItem>
+                    <MenuItem value={"1"}>Pompe 1</MenuItem>
+                    <MenuItem value={"2"}>Pompe 2</MenuItem>
+                    <MenuItem value={"3"}>Pompe 3</MenuItem>
+                    <MenuItem value={"4"}>Pompe 4</MenuItem>
+                    <MenuItem value={"5"}>Pompe 5</MenuItem>
                 </Select>
             </FormControl>
             <PompeUniqueView id={selectedPump} />

@@ -6,6 +6,8 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
             id: "1",
             state: "home",
             volumeDispensed: 0,
+            pumpType: "normal",
+            isActive: false,
             amountDispensed: 0,
             isDispensing: false,
             fuelGrade: undefined,
@@ -15,6 +17,8 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "2": {
             id: "2",
             state: "home",
+            pumpType: "normal",
+            isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -25,6 +29,8 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "3": {
             id: "3",
             state: "home",
+            pumpType: "normal",
+            isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -35,6 +41,8 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "4": {
             id: "4",
             state: "home",
+            pumpType: "sophisticated",
+            isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,
@@ -45,6 +53,8 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
         "5": {
             id: "5",
             state: "home",
+            pumpType: "sophisticated",
+            isActive: false,
             volumeDispensed: 0,
             amountDispensed: 0,
             isDispensing: false,

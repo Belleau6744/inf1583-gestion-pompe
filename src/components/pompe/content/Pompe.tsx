@@ -1,6 +1,6 @@
 import { Features } from "@features";
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import { Card } from "@mui/material";
+import { Card, Typography } from "@mui/material";
 import { BasePropsType } from "@types";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,12 +13,14 @@ import Review from './Review';
 import ReviewCompteClient from "./ReviewCompteClient";
 import SelectAmount from "./SelectAmount";
 import SelectFuelGrade from "./SelectFuelGrade";
+import SelectMode from "./SelectMode";
 import SelectPaymentMethod from './SelectPaymentMethod';
 import SelectVolume from "./SelectVolume";
 
-type PompeProps = BasePropsType & {
-    id: string;
-};
+const Header = styled.div`
+    display: flex;
+    gap: 8px;
+`;
 
 const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
     style: {
@@ -37,15 +39,29 @@ const Container = styled(Card).attrs<{$isPumping: boolean}>(props => ({
 
 const ContentWrapper = styled.div`
     padding: 15px;
+    height: 100%;
     display: flex;
     flex-direction: column;
 `;
+
+type PompeProps = BasePropsType & {
+    id: string;
+};
 
 const Pompe = ({ id, className }: PompeProps) => {
     const dispatch = useDispatch();
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id));
     const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
-    const { prixRegulier, prixPremium, vitesseDistribution, intervalDistribution, taxe } = params;
+
+
+    /** Parametres du systeme */
+    const {
+        prixRegulier,
+        prixPremium,
+        vitesseDistribution,
+        intervalDistribution,
+        taxe
+    } = params;
     
     /** Informations contenues dans une pompe */
     const {
@@ -56,6 +72,7 @@ const Pompe = ({ id, className }: PompeProps) => {
         selectedVolume,
         state,
         volumeDispensed,
+        pumpType
     } = pump;
 
     
@@ -172,6 +189,10 @@ const Pompe = ({ id, className }: PompeProps) => {
                 return (
                     <HomeMenu pumpID={id} />
                 )
+            case "selectMode":
+                return (
+                    <SelectMode pumpID={id} />
+                )
             case "selectAmount":
                 return (
                     <SelectAmount pumpID={id} />
@@ -217,7 +238,11 @@ const Pompe = ({ id, className }: PompeProps) => {
 
     return (
         <Container elevation={24} $isPumping={isDispensing} className={className}>
-            <LocalGasStationIcon sx={{ color: isDispensing ? "white" : "unset" }}/>
+            <Header>
+                <LocalGasStationIcon fontSize="large" sx={{ color: isDispensing ? "white" : "unset" }}/>
+                <Typography variant="h4">{`Pompe: ${id} - ${pumpType}`}</Typography>
+            </Header>
+            
             <ContentWrapper>
                 {CurrentState}
             </ContentWrapper>

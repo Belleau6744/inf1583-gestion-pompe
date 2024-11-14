@@ -1,63 +1,65 @@
 import { Features } from "@features";
+import CloudOffIcon from '@mui/icons-material/CloudOff';
 import { Button, Typography } from "@mui/material";
-import { PumpIDProp } from "@types";
-import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
 
-const HomeMenu = ({ pumpID }: PumpIDProp) => {
-    const dispath = useDispatch();
+const Container = styled.div`
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: gray;
+`;
 
-    /**
-     * Change pump state to `Selecting Amount to dispense ($)`
-     */
-    const handleGoToSelectAmount = useCallback(() => {
-        dispath(Features.GestionPompesFeature.action.updatePump({
+const Header = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+`;
+
+type Props = {
+    pumpID: string;
+}
+
+const HomeMenu = ({ pumpID }: Props) => {
+    const dispatch =  useDispatch();
+    const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
+    const { isActive } = pump;
+
+    const nextStep = () => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
             parameter: "state",
-            value: "selectAmount"
+            value: "selectMode"
         }));
-    }, [dispath, pumpID]);
+    }
 
-    /**
-     * Change pump state to `Selecting Volume to dispense (L)`
-     */
-    const handleGoToSelectVolume = useCallback(() => {
-        dispath(Features.GestionPompesFeature.action.updatePump({
+    if (isActive) {
+        nextStep();
+    }
+
+    const handleActivatePump = () => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
-            parameter: "state",
-            value: "selectVolume"
-        }))
-    }, [dispath, pumpID]);
+            parameter: "isActive",
+            value: true
+        }));
+        nextStep();
+    }
     
-    /**
-     * Change pump state to `Selecting fuel grade`
-     */
-    const handleGoToSelectGrade = useCallback(() => {
-        dispath(Features.GestionPompesFeature.action.updatePump({
-            pumpID: pumpID,
-            parameter: "state",
-            value: "selectGrade"
-        }))
-    }, [dispath, pumpID]);
-
     return (
-        <>
-            <Typography sx={{ marginBottom: '12px' }} variant="h5">Please select an option</Typography>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {/* Choisir un montant ($) */}
-                <Button
-                    variant="outlined"
-                    onClick={handleGoToSelectAmount}>Montant pre-payer</Button>
-                {/* Choisir un volume (L) */}
-                <Button
-                    variant="outlined"
-                    onClick={handleGoToSelectVolume}>Volume pre-payer</Button>
-                {/* Remplissage Libre */}
-                <Button
-                    variant="outlined"
-                    onClick={handleGoToSelectGrade}>Remplissage libre</Button>
+        <Container>
+            <Header>
+                <Typography variant="h5" fontWeight={800}>La pompe {pumpID} est désactivée</Typography>
+                <CloudOffIcon/>
+            </Header>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flex: 1}}>
+                <Button onClick={handleActivatePump} variant="contained">Actier la pompe</Button>            
             </div>
-        </>
+        </Container>
     )
 }
 

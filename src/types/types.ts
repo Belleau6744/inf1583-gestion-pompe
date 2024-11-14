@@ -7,15 +7,16 @@ export type PumpIDProp = {
 }
 
 export type Pompe_State = 
-    "ready"               |
-    "home"                |
-    "selectAmount"        |
-    "selectVolume"        |
-    "selectGrade"         |
-    "selectPaymentMethod" |
-    "carteCredit"         |
-    "compteClient"        |
-    "review"              |
+    "ready"                    |
+    "home"                     |
+    "selectMode"               | 
+    "selectAmount"             |
+    "selectVolume"             |
+    "selectGrade"              |
+    "selectPaymentMethod"      |
+    "carteCredit"              |
+    "compteClient"             |
+    "review"                   |
     "reviewCompteClient"  
 ;
 export type FuelGrade = "regulier"|"premium";
@@ -55,6 +56,8 @@ export type RapportOverview = {
  */
 export type Pompe = {
     id: string;
+    pumpType: "normal" | "sophisticated"
+    isActive: boolean;
     state: Pompe_State;
     volumeDispensed: number;
     amountDispensed: number;
@@ -84,6 +87,7 @@ export type GestionPompe = {
 
 export type UpdatePumpParam =
     "state"           |
+    "isActive"        |
     "volumeDispensed" |
     "amountDispensed" |
     "isDispensing"    |
