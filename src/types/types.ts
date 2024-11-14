@@ -15,10 +15,11 @@ export type Pompe_State =
     "selectPaymentMethod" |
     "carteCredit"         |
     "compteClient"        |
-    "review"              
+    "review"              |
+    "reviewCompteClient"  
 ;
 export type FuelGrade = "regulier"|"premium";
-export type UserRole = "admin" | "employee";
+export type UserRole = "admin" | "employee" | "client";
 
 /******************************************************************/
 /**

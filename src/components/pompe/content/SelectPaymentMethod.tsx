@@ -18,13 +18,22 @@ const SelectPaymentMethod = ({ pumpID }: PumpIDProp) => {
         }));
     }, [dispatch, pumpID]);
 
+    const handleGoToClient = () => {
+        dispatch(Features.GestionPompesFeature.action.updatePump({
+            pumpID: pumpID,
+            parameter: "state",
+            value: "reviewCompteClient"
+        }))
+    }
+
     return (
         <div>
             <Typography variant="subtitle1">Volume: {volumeDispensed}L</Typography>
             <Typography variant="subtitle1">Montant: {format(amountDispensed === 0 ? (selectedAmount ?? amountDispensed) : amountDispensed)}</Typography>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '12px' }}>
                 <Button variant="outlined" onClick={handleGoToCreditCardPayment}>Carte de credit</Button>
-                <Button variant="outlined">Compte client</Button>
+                <Button variant="outlined" onClick={handleGoToClient}>Compte client</Button>
+                <Button variant="outlined">Argent Comptant</Button>
             </div>
         </div>
     )

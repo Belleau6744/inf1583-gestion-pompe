@@ -41,8 +41,15 @@ const HomePage = () => {
         event.stopPropagation();
         if (username === utilisateurAdmin.username && password === utilisateurAdmin.motDePasse) {
             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
+            dispatch(Features.UserFeature.action.setUserRole("admin"));
             nav("/pompes");
         }
+    }
+
+    const handleClientConnection = () => {
+        dispatch(Features.UserFeature.action.setUserAuthStatus(true));
+        dispatch(Features.UserFeature.action.setUserRole("client"));
+        nav("/pompeIndividuelle");
     }
 
     return (
@@ -75,6 +82,7 @@ const HomePage = () => {
                         value={password}/>
                         
                     <Button type="submit" variant="contained">Se connecter</Button>
+                    <Button type='button' onClick={handleClientConnection} variant="contained">Connexion client</Button>
                 </form>
             </Card>
         </Container>       

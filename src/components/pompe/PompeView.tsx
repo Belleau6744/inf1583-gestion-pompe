@@ -1,7 +1,10 @@
+import { Features } from "@features";
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Pompe from "../../components/OverviewPompes/content/Pompe";
+import Pompe from "./content/Pompe";
 
 const Container = styled.div`
     padding: 100px;
@@ -17,6 +20,14 @@ const PompeUniqueView = styled(Pompe)`
 
 const PompeView = () => {
     const [ selectedPump, setSelectedPump ] = useState<string>("1");
+    const isUserConected = useSelector(Features.UserFeature.selector.isUserSignedIn);
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (!isUserConected) {
+          nav("/");
+        }
+      }, [isUserConected, nav]);
 
     const handleOnChange = (event: SelectChangeEvent) => {
         setSelectedPump(event.target.value);

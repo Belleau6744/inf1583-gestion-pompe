@@ -5,10 +5,12 @@ import { BasePropsType } from "@types";
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
+import ConnectionClient from "./ConnectionClient";
 import CreditCard from './CreditCard';
 import HomeMenu from "./HomeMenu";
 import Ready from "./Ready";
 import Review from './Review';
+import ReviewCompteClient from "./ReviewCompteClient";
 import SelectAmount from "./SelectAmount";
 import SelectFuelGrade from "./SelectFuelGrade";
 import SelectPaymentMethod from './SelectPaymentMethod';
@@ -197,6 +199,14 @@ const Pompe = ({ id, className }: PompeProps) => {
             case "review":
                 return (
                     <Review pumpID={id} />
+                )
+            case "reviewCompteClient":
+                return (
+                    <ReviewCompteClient pumpID={id}/>
+                )
+            case "compteClient":
+                return (
+                    <ConnectionClient />
                 )
             default:
                 return (
