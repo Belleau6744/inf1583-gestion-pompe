@@ -1,9 +1,12 @@
 # System de gestion de pompes
 
-> **ℹ️ Info:** Info de connexion de base
+> **ℹ️ Info Compte Admin:** Info de connexion de base
 > - username: **admin**
 > - password: **password**
 
+> **ℹ️ Info Compte Employee:** Info de connexion de base
+> - username: **employee**
+> - password: **password**
 
 ## Architecture
 
