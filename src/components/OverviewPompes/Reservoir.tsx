@@ -1,5 +1,5 @@
 import PropaneIcon from '@mui/icons-material/Propane';
-import { Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { BasePropsType } from "@types";
 import { useEffect, useRef } from 'react';
 import { Bounce, Id, toast } from 'react-toastify';
@@ -16,9 +16,11 @@ type ReservoirProps = BasePropsType & {
 }
 
 const Background = styled.div<{$fillPercentage: number}>`
-    background: linear-gradient(to top,#d7ac28 ${props => props.$fillPercentage}%,#484848 ${props => props.$fillPercentage}%);
-    width: 100px;
+    background: linear-gradient(to top,#bf9925 ${props => props.$fillPercentage}%,#484848 ${props => props.$fillPercentage}%);
+    width: 150px;
     height: 100px;
+    padding: 12px;
+    box-sizing: border-box;
     outline: ${props => props.$fillPercentage < 4 ? "8px solid red" : "2px solid black"};
 `; 
 
@@ -62,8 +64,12 @@ const Reservoir = (props: ReservoirProps) => {
         <Container $xPosition={xPosition} $yPosition={yPosition}>
             <Background className={className} $fillPercentage={fillPercentage}>
                 <ContentWrapper>
-                    <PropaneIcon sx={{ fill: "white" }} fontSize="medium" />
-                    <Typography sx={{ backgroundColor: "gray", color: "white", width: "50px" }}>{fillPercentage}%</Typography>
+                    <div style={{ display: "flex", width: "100%", gap: "8px"}}>
+                        <PropaneIcon sx={{ fill: "white" }} fontSize="medium" />
+                        {id === "1" && <Typography color ="white">Regulier</Typography>}
+                        {id === "2" && <Typography color="white">Premium</Typography>}
+                    </div>
+                    <TextField size="small" sx={{ backgroundColor: "#c8c2c24e"}} slotProps={{input:{sx:{ color: "white"}}}} value={`${fillPercentage}%`}/>
                 </ContentWrapper>
             </Background>
         </Container>

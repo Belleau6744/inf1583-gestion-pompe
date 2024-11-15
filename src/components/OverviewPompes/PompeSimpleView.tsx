@@ -5,6 +5,11 @@ import { getStateString } from '@utils';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+const HeaderWrapper = styled.div`
+    display: flex;
+    gap: 8px;
+`;
+
 const Container = styled.div<{ $xPosition: number, $yPosition: number}>`
     position: absolute;
     background-color: gray;
@@ -28,7 +33,10 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
 
     return (
         <Container $xPosition={xPosition} $yPosition={yPosition}>
-            <LocalGasStationIcon sx={{ fill: "white" }} />
+            <HeaderWrapper>
+                <LocalGasStationIcon sx={{ fill: "white" }} />
+                <Typography sx={{ color: "white" }}>Pompe - {id}</Typography>
+            </HeaderWrapper>
             <Typography variant="h6" color="textPrimary">STATUT:</Typography>
             <Divider sx={{ background: "black"}}/>
             <TextField variant="outlined" sx={{ background: "white", border: "4px solid rgb(42, 137, 246)" }} aria-readonly slotProps={{ input: { readOnly: true }}} value={getStateString(state)} />
