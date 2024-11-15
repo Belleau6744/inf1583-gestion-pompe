@@ -7,11 +7,18 @@ import { Button, Card, Divider, IconButton, TextField, Typography } from "@mui/m
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Bounce, Id, toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
     width: 100vw;
     height: 100vh;
+`;
+
+const BottomButtonWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 `;
 
 const HomePage = () => {
@@ -20,29 +27,44 @@ const HomePage = () => {
     const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
     const { utilisateurAdmin } = params;
     const inputRef = useRef<HTMLFormElement>(null);
-    const [ username, setUsername ] = useState<string>("");
-    const [ password, setPassword ] = useState<string>("");
+    const [ userInfo, setUserInfo ] = useState<{ username: string, password: string }>({ username: "", password: "" })
     const [showPassword, setShowPassword] = useState(false);
+    const [ showError, setShowError ] = useState<boolean>(false);
+    const toastRef = useRef<Id>();
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-    const handleOnChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-        setPassword(value);
-    }
-
-    const handleOnChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
-        setUsername(value);
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { value, id } = e.target;
+        setUserInfo(prev => ({
+            ...prev,
+            [id]: value
+        }));
     }
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         event.stopPropagation();
-        if (username === utilisateurAdmin.username && password === utilisateurAdmin.motDePasse) {
+        if (userInfo.username === utilisateurAdmin.username && userInfo.password === utilisateurAdmin.motDePasse) {
+            toast.dismiss(toastRef.current);
             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
             dispatch(Features.UserFeature.action.setUserRole("admin"));
             nav("/pompes");
+        } else {
+            setShowError(true);
+            toastRef.current =  toast.error(`Les informations d'identification sont incorrectes`, {
+				position: "bottom-left",
+				autoClose: 4000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+				transition: Bounce,
+                onClose: () => {
+                    toastRef.current = undefined;
+                    setShowError(false);
+                }
+			})
         }
     }
 
@@ -64,25 +86,30 @@ const HomePage = () => {
                                 startAdornment: <PersonIcon /> 
                             }
                         }}
+                        error={showError}
                         required
+                        id="username"
                         label="Nom d'utilisateur"
-                        onChange={handleOnChangeUsername}
-                        value={username}></TextField>
+                        onChange={handleOnChange}
+                        value={userInfo.username}></TextField>
 
                     <TextField
                         slotProps={{
                             input: {
-                                endAdornment: <IconButton onClick={handleClickShowPassword}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton>, startAdornment: <LockIcon />
+                                endAdornment: <IconButton onClick={() => setShowPassword((show) => !show)}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton>, startAdornment: <LockIcon />
                             }
                         }}
                         required
+                        error={showError}
+                        id="password"
                         label="Mot de passe"
                         type={showPassword ? 'text' : 'password'}
-                        onChange={handleOnChangePassword}
-                        value={password}/>
-                        
-                    <Button type="submit" variant="contained">Se connecter</Button>
-                    <Button type='button' onClick={handleClientConnection} variant="contained">Connexion client</Button>
+                        onChange={handleOnChange}
+                        value={userInfo.password}/>
+                    <BottomButtonWrapper>
+                    <Button type='button' color="warning" onClick={handleClientConnection} variant="contained">Connexion client</Button>
+                        <Button type="submit" color="primary" variant="contained">Se connecter</Button>
+                    </BottomButtonWrapper>
                 </form>
             </Card>
         </Container>       

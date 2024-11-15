@@ -7,6 +7,8 @@ import { UpdatePumpParam, UpdatePumpPayload } from "@types";
  */
 export const reduceRerservoirFillValue = createAction<{ reservoirID: string,  value: number }>('gestionPompe/reduceRerservoirFillValue');
 
+export const setReservoirValue = createAction<{ reservoirID: string,  value: number }>('gestionPompe/setReservoirValue');
+
 /**
  * Reset a resevoir back to 100
  * @param reservoirID - The id of the reservoir that should be impacted (if not provided, reset All)

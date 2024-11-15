@@ -9,6 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Item = styled(Paper)`
+    display: flex;
+    justify-content: center;
+    font-weight: 800;
     &&:hover {
         cursor: pointer;
     }
@@ -75,31 +78,31 @@ const CreditCard = ({ pumpID }: PumpIDProp) => {
 
             <Grid container spacing={2}>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>1</Item>
+                    <Item elevation={4} onClick={handleInputChange}>1</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>2</Item>
+                    <Item elevation={4} onClick={handleInputChange}>2</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>3</Item>
+                    <Item elevation={4} onClick={handleInputChange}>3</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>4</Item>
+                    <Item elevation={4} onClick={handleInputChange}>4</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>5</Item>
+                    <Item elevation={4} onClick={handleInputChange}>5</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>6</Item>
+                    <Item elevation={4} onClick={handleInputChange}>6</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item sx={{ backgroundColor: 'wheat' }} onClick={handleRemove}><ClearIcon/></Item>
+                    <Item elevation={4} sx={{ backgroundColor: 'wheat' }} onClick={handleRemove}><ClearIcon/></Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={handleInputChange}>0</Item>
+                    <Item elevation={4} onClick={handleInputChange}>0</Item>
                 </Grid>
                 <Grid size={4}>
-                    <Item onClick={submitPin}><DoneIcon/></Item>
+                    <Item elevation={4} onClick={submitPin}><DoneIcon/></Item>
                 </Grid>
             </Grid>
         </Container>

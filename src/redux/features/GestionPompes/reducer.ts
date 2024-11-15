@@ -1,7 +1,7 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "@types";
 import { INITIAL_GESTION_POMPE_DATA } from "../../../data/initialData";
-import { reduceRerservoirFillValue, resetPumpByID, resetReservoir, updatePump } from "./action";
+import { reduceRerservoirFillValue, resetPumpByID, resetReservoir, setReservoirValue, updatePump } from "./action";
 
 const initialState: GestionPompe = INITIAL_GESTION_POMPE_DATA;
 
@@ -17,6 +17,16 @@ const handleReduceRerservoirFillValue = (
     const formatedValue = parseFloat(newValue.toFixed(2))
     // Ensure reservoir doesn't go below 0
     state.reservoirs[action.payload.reservoirID].fillPercentage = Math.max(0, formatedValue);
+}
+
+const handleSetReservoirValue = (
+    state: GestionPompe,
+    action: PayloadAction<{
+        reservoirID: string,
+        value: number
+    }>
+) => {
+    state.reservoirs[action.payload.reservoirID].fillPercentage = action.payload.value;
 }
 
 const handleResetReservoir = (
@@ -68,6 +78,7 @@ const handleResetPumpByID = (
 export const gestionPompesReducer = createReducer(initialState, (builder) => {
     builder
         .addCase(reduceRerservoirFillValue, handleReduceRerservoirFillValue)
+        .addCase(setReservoirValue, handleSetReservoirValue)
         .addCase(resetReservoir, handleResetReservoir)
         .addCase(updatePump, handleUpdatePump)
         .addCase(resetPumpByID ,handleResetPumpByID)

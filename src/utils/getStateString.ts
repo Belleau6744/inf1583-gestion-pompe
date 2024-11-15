@@ -1,13 +1,16 @@
 import { Pompe_State } from "@types";
 
-export const getStateString = (currentState: Pompe_State) => {
+export const getStateString = (currentState: Pompe_State, isActive: boolean) => {
+    if (!isActive) {
+        return "Pompe desactivee"
+    }
     switch (currentState) {
         case "distribution":
-            return "Distribution de l'essence";
+            return "Distribution d'essence";
         case "home":
-            return "Pompe desactivee"
+            return "Selection"
         case "selectMode":
-            return "Selection du mode de distribution"
+            return "Selection mode de distribution"
         case "selectAmount":
             return "Selection du montant"
         case "selectVolume":

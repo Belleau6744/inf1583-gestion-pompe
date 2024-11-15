@@ -66,11 +66,11 @@ export const INITIAL_GESTION_POMPE_DATA: GestionPompe = {
     reservoirs: {
         "1": {
             id: "1",
-            fillPercentage: 100
+            fillPercentage: 80
         },
         "2": {
             id: "2",
-            fillPercentage: 100,
+            fillPercentage: 35,
         }
     }
 }
