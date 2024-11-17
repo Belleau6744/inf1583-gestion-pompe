@@ -26,7 +26,7 @@ const NavBar = () => {
    * Log user out
    */
   const handleLogout = () => {
-    dispatch(Features.UserFeature.action.setUserAuthStatus(false));
+    dispatch(Features.UserFeature.action.connectUser({role: undefined, authStatus: false}));
   }
 
   useEffect(() => {

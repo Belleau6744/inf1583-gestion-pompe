@@ -48,13 +48,11 @@ const HomePage = () => {
         event.stopPropagation();
         if (userInfo.username === utilisateurAdmin.username && userInfo.password === utilisateurAdmin.motDePasse) {
             toast.dismiss(toastRef.current);
-            dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-            dispatch(Features.UserFeature.action.setUserRole("admin"));
+            dispatch(Features.UserFeature.action.connectUser({role: "admin", authStatus: true}));
             nav("/pompes");
         } else if (userInfo.username === utilisateurEmployee.username && userInfo.password === utilisateurEmployee.motDePasse) {
             toast.dismiss(toastRef.current);
-            dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-            dispatch(Features.UserFeature.action.setUserRole("employee"));
+            dispatch(Features.UserFeature.action.connectUser({role: "employee", authStatus: true}));
             nav("/pompes");
         
         } else {
@@ -78,8 +76,7 @@ const HomePage = () => {
     }
 
     const handleClientConnection = () => {
-        dispatch(Features.UserFeature.action.setUserAuthStatus(true));
-        dispatch(Features.UserFeature.action.setUserRole("client"));
+        dispatch(Features.UserFeature.action.connectUser({role: "client", authStatus: true}));
         nav("/pompeIndividuelle");
     }
 

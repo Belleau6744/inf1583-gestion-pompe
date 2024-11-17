@@ -109,6 +109,10 @@ export type UserState = {
     isSignedIn: boolean;
     userRole: UserRole | undefined;
 }
+export type ConnectUserType = {
+    role: UserRole | undefined;
+    authStatus: boolean;
+}
 
 /******************************************************************/
 /**

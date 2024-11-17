@@ -1,22 +1,17 @@
 import { PayloadAction, createReducer } from '@reduxjs/toolkit';
-import { UserRole, UserState } from "@types";
-import { setUserAuthStatus, setUserRole } from './action';
+import { ConnectUserType, UserState } from "@types";
+import { connectUser } from './action';
 
 const initialState: UserState = { 
     isSignedIn: false,     
     userRole: undefined,
 }
 
-const handleSetUserAuthStatus = (state: UserState, action: PayloadAction<boolean>) => {
-    state.isSignedIn = action.payload;
-}
-
-const handleSetUserRole = (state: UserState, action: PayloadAction<UserRole>) => {
-    state.userRole = action.payload;
+const handleConnectUser = (_state: UserState, action: PayloadAction<ConnectUserType>) => {
+    return { isSignedIn: action.payload.authStatus , userRole: action.payload.role}
 }
 
 export const userReducer = createReducer(initialState, (builder) => {
     builder
-        .addCase(setUserAuthStatus, handleSetUserAuthStatus)
-        .addCase(setUserRole, handleSetUserRole)
+        .addCase(connectUser, handleConnectUser)
 })

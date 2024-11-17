@@ -1,6 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { UserRole } from "@types";
+import { ConnectUserType } from '@types';
 
-export const setUserAuthStatus = createAction<boolean>('user/setUserAuthStatus');
-
-export const setUserRole = createAction<UserRole>('user/setUserRole');
+export const connectUser = createAction<ConnectUserType>('user/connectUser');
