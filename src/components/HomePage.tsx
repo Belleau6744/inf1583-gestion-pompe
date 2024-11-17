@@ -25,13 +25,15 @@ const HomePage = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const params = useSelector(Features.ParametresGenerauxFeature.selector.getParametresGeneraux);
-    const { utilisateurAdmin } = params;
-    const { utilisateurEmployee } = params;
     const inputRef = useRef<HTMLFormElement>(null);
+    const toastRef = useRef<Id>();
+
+    const { utilisateurAdmin, utilisateurEmployee } = params;
+    
     const [ userInfo, setUserInfo ] = useState<{ username: string, password: string }>({ username: "", password: "" })
     const [showPassword, setShowPassword] = useState(false);
     const [ showError, setShowError ] = useState<boolean>(false);
-    const toastRef = useRef<Id>();
+    
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { value, id } = e.target;
@@ -49,13 +51,13 @@ const HomePage = () => {
             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
             dispatch(Features.UserFeature.action.setUserRole("admin"));
             nav("/pompes");
-        }else if (userInfo.username ===utilisateurEmployee.username && userInfo.password === utilisateurEmployee.motDePasse) {
+        } else if (userInfo.username === utilisateurEmployee.username && userInfo.password === utilisateurEmployee.motDePasse) {
             toast.dismiss(toastRef.current);
             dispatch(Features.UserFeature.action.setUserAuthStatus(true));
             dispatch(Features.UserFeature.action.setUserRole("employee"));
             nav("/pompes");
         
-        }else {
+        } else {
             setShowError(true);
             toastRef.current =  toast.error(`Les informations d'identification sont incorrectes`, {
 				position: "bottom-left",

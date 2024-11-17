@@ -36,7 +36,7 @@ const columns: GridColDef<RowPumpUnpaidTransaction>[] = [
   },
   {
     field: 'amountUnpaid',
-    headerName: 'Amount Unpaid',
+    headerName: 'Montant non-payé',
     headerClassName: "custom-header-styling",
     type: 'number',
     width: 110,
