@@ -130,4 +130,8 @@ export type ParametresType = {
        username: string;
         motDePasse: string;
     }
+    utilisateurEmployee: {
+        username: string;
+         motDePasse: string;
+     }
 }

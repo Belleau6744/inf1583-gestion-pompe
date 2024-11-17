@@ -7,6 +7,7 @@ import styled from "styled-components";
 import CustomTabPanel from "./CustomTabPanel";
 import TransactionsImpayees from "./TransactionImpayees";
 import TransactionsGeneral from "./TransactionsGeneral";
+import Archive from "./Archive";
 
 const Container = styled.div`
 `;
@@ -32,7 +33,7 @@ const Rapport = () => {
                 <Tabs value={currentPage} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Tout" />
                     <Tab label="Transactions Impayées" />
-                    <Tab label="Item Three" />
+                    <Tab label="Archive" />
                 </Tabs>
             </Box>
                 <CustomTabPanel value={currentPage} index={0}>
@@ -43,7 +44,7 @@ const Rapport = () => {
                     <TransactionsImpayees />
                 </CustomTabPanel>
                 <CustomTabPanel value={currentPage} index={2}>
-                    Item Three
+                     <Archive />
                 </CustomTabPanel>
         </Container>
   );

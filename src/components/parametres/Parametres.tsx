@@ -15,6 +15,10 @@ const EMPTY_STATE: ParametresType = {
     utilisateurAdmin: {
         username: "",
         motDePasse: ""
+    },
+    utilisateurEmployee: {
+        username: "",
+        motDePasse: ""
     }
 }
 

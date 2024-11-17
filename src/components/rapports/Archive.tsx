@@ -3,18 +3,18 @@ import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { RowPumpUnpaidTransaction } from "@types";
 
-const { INITIAL_UNPAID_TRANSACTIONS_DATA } = DATA.initialData;
+const { INITIAL_Archive_DATA } = DATA.initialData;
 
 const columns: GridColDef<RowPumpUnpaidTransaction>[] = [
   { 
     field: 'id', 
-    headerName: 'ID Transaction', 
+    headerName: 'ID', 
     width: 90, 
     headerClassName: "custom-header-styling" 
   },
   {
     field: 'pumpID',
-    headerName: 'Numéro de pompe ID',
+    headerName: 'Pump ID',
     type: "string",
     headerClassName: "custom-header-styling",
     width: 150,
@@ -56,9 +56,9 @@ const columns: GridColDef<RowPumpUnpaidTransaction>[] = [
   },
 ];
 
-const rows = INITIAL_UNPAID_TRANSACTIONS_DATA;
+const rows = INITIAL_Archive_DATA;
 
-const TransactionsImpayees = () => {
+const Archive = () => {
     return (
         <Box sx={{ height: "80vh", width: '60vw' }}>
           <DataGrid<RowPumpUnpaidTransaction>
@@ -82,7 +82,7 @@ const TransactionsImpayees = () => {
             disableRowSelectionOnClick
           />
         </Box>
-    )
-}
+    );
+};
 
-export default TransactionsImpayees;
+export default Archive;
