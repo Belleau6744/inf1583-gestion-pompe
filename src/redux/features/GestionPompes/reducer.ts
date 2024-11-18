@@ -62,8 +62,7 @@ const handleResetPumpByID = (
 ) => {
     state.pompes[action.payload.pumpID] = {
         id: action.payload.pumpID,
-        isActive: false,
-        state: "home",
+        state: "inactive",
         pumpType: state.pompes[action.payload.pumpID].pumpType,
         volumeDispensed: 0,
         amountDispensed: 0,
@@ -80,8 +79,7 @@ const handleResetPumpByIDShared = (
 ) => {
     state.pompes[action.payload.pumpID] = {
         id: action.payload.pumpID,
-        isActive: false,
-        state: "home",
+        state: "inactive",
         pumpType: state.pompes[action.payload.pumpID].pumpType,
         volumeDispensed: 0,
         amountDispensed: 0,

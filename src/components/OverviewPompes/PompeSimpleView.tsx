@@ -3,7 +3,7 @@ import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { Button, Switch, TextField, Typography } from '@mui/material';
 import { addUnpaidTransactionAndResetPump } from '@sharedActions';
 import { getStateString } from '@utils';
-import { ChangeEvent, useMemo } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -40,17 +40,24 @@ type Props = {
 const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id))
     const dispatch = useDispatch();
-    const { state, isActive, id: pumpID, amountDispensed } = pump;
+    const { state, id: pumpID, amountDispensed } = pump;
+    const [ isActive, setIsActive] = useState<boolean>(state !== "inactive");
+
+
 
     const StateString = useMemo(() => {
-        return getStateString(state, isActive);
-    }, [isActive, state]);
+        return getStateString(state);
+    }, [state]);
+
+    useEffect(() => {
+        setIsActive(state !== "inactive");
+    }, [state])
 
     const handleChange = (_event: ChangeEvent<HTMLInputElement>, isChecked: boolean) => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: id,
-            parameter: "isActive",
-            value: isChecked
+            parameter: "state",
+            value: isChecked ? "home" : "inactive"
         }));
     }
 
@@ -74,7 +81,7 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
             </HeaderWrapper>
             <SubHeaderWrapper>
                 <div></div>
-                <Switch onChange={handleChange} value={isActive} />
+                <Switch checked={isActive} onChange={handleChange} />
             </SubHeaderWrapper>
             <TextField label={"STATUT: "} variant="outlined" fullWidth value={StateString} />
             {isActive && <Button onClick={handleTransactionImpayee} sx={{ marginTop: "8px" }} fullWidth variant="contained" color="warning" size="large">Transaction impayee</Button>}

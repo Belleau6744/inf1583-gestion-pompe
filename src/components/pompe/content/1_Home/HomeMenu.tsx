@@ -28,7 +28,7 @@ type Props = {
 const HomeMenu = ({ pumpID }: Props) => {
     const dispatch =  useDispatch();
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
-    const { isActive } = pump;
+    
 
     const nextStep = useCallback(() => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
@@ -39,16 +39,16 @@ const HomeMenu = ({ pumpID }: Props) => {
     }, [dispatch, pumpID]);
 
     useEffect(() => {
-        if (isActive) {
+        if (pump.state !== "inactive") {
             nextStep();
         }
-    }, [isActive, nextStep]);
+    }, [nextStep, pump.state]);
 
     const handleActivatePump = () => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
-            parameter: "isActive",
-            value: true
+            parameter: "state",
+            value: "home"
         }));
         nextStep();
     }

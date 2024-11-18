@@ -7,6 +7,7 @@ export type PumpIDProp = {
 }
 
 export type Pompe_State = 
+    "inactive"                 |
     "distribution"             |
     "home"                     |
     "selectMode"               | 
@@ -57,7 +58,6 @@ export type RapportOverview = {
 export type Pompe = {
     id: string;
     pumpType: "normal" | "sophistiquee"
-    isActive: boolean;
     state: Pompe_State;
     volumeDispensed: number;
     amountDispensed: number;
@@ -87,7 +87,6 @@ export type GestionPompe = {
 
 export type UpdatePumpParam =
     "state"           |
-    "isActive"        |
     "volumeDispensed" |
     "amountDispensed" |
     "isDispensing"    |
