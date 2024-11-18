@@ -1,10 +1,12 @@
 import { Features } from '@features';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import { Divider, Switch, TextField, Typography } from '@mui/material';
+import { Button, Switch, TextField, Typography } from '@mui/material';
+import { addUnpaidTransactionAndResetPump } from '@sharedActions';
 import { getStateString } from '@utils';
 import { ChangeEvent, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 
 const HeaderWrapper = styled.div`
     display: flex;
@@ -23,7 +25,7 @@ const Container = styled.div<{ $xPosition: number, $yPosition: number, $isActive
     border: 3px solid ${props => props.$isActive ? "#489b1e" : "black"};
     width: 250px;
     border-radius: 8px;
-    height: 200px;
+    height: 250px;
     padding: 6px;
     left: ${props => props.$xPosition}%;
     top: ${props => props.$yPosition}%;
@@ -38,7 +40,7 @@ type Props = {
 const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(id))
     const dispatch = useDispatch();
-    const { state, isActive } = pump;
+    const { state, isActive, id: pumpID, amountDispensed } = pump;
 
     const StateString = useMemo(() => {
         return getStateString(state, isActive);
@@ -52,6 +54,18 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
         }));
     }
 
+    const handleTransactionImpayee = () => {
+        dispatch(addUnpaidTransactionAndResetPump({
+            pumpID: pumpID,
+            transaction: {
+                id: uuidv4(),
+                pumpID: pumpID,
+                date: (new Date()).toString(),
+                amountUnpaid: amountDispensed
+            }
+        }));
+    };
+
     return (
         <Container $isActive={isActive} $xPosition={xPosition} $yPosition={yPosition}>
             <HeaderWrapper>
@@ -59,12 +73,12 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
                 <Typography sx={{ color: isActive ? "black" : "white" }}>Pompe - {id}</Typography>
             </HeaderWrapper>
             <SubHeaderWrapper>
-                <Typography variant="h6" sx={{ color: isActive ? "black" : "white"  }}>STATUT:</Typography>
+                <div></div>
                 <Switch onChange={handleChange} value={isActive} />
             </SubHeaderWrapper>
-            <Divider sx={{ background: "black"}}/>
-            <TextField variant="outlined" sx={{ background: "white", border: "3px solid rgb(42, 137, 246)", width: "100%", boxSizing: "border-box" }} aria-readonly slotProps={{ input: { readOnly: true }}} value={StateString} />
-            
+            <TextField label={"STATUT: "} variant="outlined" fullWidth value={StateString} />
+            {isActive && <Button onClick={handleTransactionImpayee} sx={{ marginTop: "8px" }} fullWidth variant="contained" color="warning" size="large">Transaction impayee</Button>}
+            {isActive && <Button sx={{ marginTop: "8px" }} fullWidth variant="text" color="primary" size="large">Archiver transaction</Button>}
         </Container>
     )
 }

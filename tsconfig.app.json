@@ -10,7 +10,8 @@
       "@types": ["types/types"],
       "@features": ["redux/features"],
       "@data": ["data"],
-      "@utils": ["utils"]
+      "@utils": ["utils"],
+      "@sharedActions": ["redux/sharedActions/sharedActions"]
     },
 
     /* Bundler mode */

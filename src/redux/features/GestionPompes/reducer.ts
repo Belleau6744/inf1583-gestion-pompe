@@ -1,5 +1,6 @@
 import { createReducer, PayloadAction } from '@reduxjs/toolkit';
-import { GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "@types";
+import { addUnpaidTransactionAndResetPump } from '@sharedActions';
+import { AddUnpaidTransactionAndResetPump, GestionPompe, UpdatePumpParam, UpdatePumpPayload } from "@types";
 import { INITIAL_GESTION_POMPE_DATA } from "../../../data/initialData";
 import { reduceRerservoirFillValue, resetPumpByID, resetReservoir, setReservoirValue, updatePump } from "./action";
 
@@ -73,6 +74,24 @@ const handleResetPumpByID = (
     }
 }
 
+const handleResetPumpByIDShared = (
+    state: GestionPompe,
+    action: PayloadAction<AddUnpaidTransactionAndResetPump>
+) => {
+    state.pompes[action.payload.pumpID] = {
+        id: action.payload.pumpID,
+        isActive: false,
+        state: "home",
+        pumpType: state.pompes[action.payload.pumpID].pumpType,
+        volumeDispensed: 0,
+        amountDispensed: 0,
+        isDispensing: false,
+        fuelGrade: undefined,
+        selectedAmount: undefined,
+        selectedVolume: undefined
+    }
+}
+
 
 
 export const gestionPompesReducer = createReducer(initialState, (builder) => {
@@ -82,6 +101,5 @@ export const gestionPompesReducer = createReducer(initialState, (builder) => {
         .addCase(resetReservoir, handleResetReservoir)
         .addCase(updatePump, handleUpdatePump)
         .addCase(resetPumpByID ,handleResetPumpByID)
-        
-        
+        .addCase(addUnpaidTransactionAndResetPump ,handleResetPumpByIDShared)   
 })

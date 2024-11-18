@@ -113,6 +113,14 @@ export type ConnectUserType = {
     role: UserRole | undefined;
     authStatus: boolean;
 }
+/*******************************************************************/
+/**
+ * Shared actions
+ */
+export type AddUnpaidTransactionAndResetPump = {
+    pumpID: string;
+    transaction: RowPumpUnpaidTransaction;
+}
 
 /******************************************************************/
 /**

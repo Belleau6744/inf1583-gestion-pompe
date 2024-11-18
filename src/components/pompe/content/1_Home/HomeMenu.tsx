@@ -1,6 +1,7 @@
 import { Features } from "@features";
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import { Button, Typography } from "@mui/material";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -29,17 +30,19 @@ const HomeMenu = ({ pumpID }: Props) => {
     const pump = useSelector(Features.GestionPompesFeature.selector.getPumpById(pumpID));
     const { isActive } = pump;
 
-    const nextStep = () => {
+    const nextStep = useCallback(() => {
         dispatch(Features.GestionPompesFeature.action.updatePump({
             pumpID: pumpID,
             parameter: "state",
             value: "selectMode"
         }));
-    }
+    }, [dispatch, pumpID]);
 
-    if (isActive) {
-        nextStep();
-    }
+    useEffect(() => {
+        if (isActive) {
+            nextStep();
+        }
+    }, [isActive, nextStep]);
 
     const handleActivatePump = () => {
         dispatch(Features.GestionPompesFeature.action.updatePump({

@@ -8,7 +8,6 @@ export const getStateString = (currentState: Pompe_State, isActive: boolean) => 
         case "distribution":
             return "Distribution d'essence";
         case "home":
-            return "Selection"
         case "selectMode":
             return "Selection mode de distribution"
         case "selectAmount":
