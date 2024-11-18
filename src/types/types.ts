@@ -30,6 +30,7 @@ export type UserRole = "admin" | "employee" | "client";
 export type RowPumpUnpaidTransaction = {
     id: string;
     pumpID: string;
+    carPlate: string;
     date: string;
     amountUnpaid: number;   
 }

@@ -1,6 +1,6 @@
 import { Features } from '@features';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
-import { Button, Switch, TextField, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Switch, TextField, Typography } from '@mui/material';
 import { addUnpaidTransactionAndResetPump } from '@sharedActions';
 import { getStateString } from '@utils';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
@@ -42,6 +42,7 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
     const dispatch = useDispatch();
     const { state, id: pumpID, amountDispensed } = pump;
     const [ isActive, setIsActive] = useState<boolean>(state !== "inactive");
+    const [ isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
 
 
@@ -62,16 +63,22 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
     }
 
     const handleTransactionImpayee = () => {
+        setIsModalOpen(false);
         dispatch(addUnpaidTransactionAndResetPump({
             pumpID: pumpID,
             transaction: {
                 id: uuidv4(),
                 pumpID: pumpID,
                 date: (new Date()).toString(),
-                amountUnpaid: amountDispensed
+                amountUnpaid: amountDispensed,
+                carPlate: "E12 KOP"
             }
         }));
-    };
+    }
+
+    const handleClose = () => {
+        setIsModalOpen(false);
+    }
 
     return (
         <Container $isActive={isActive} $xPosition={xPosition} $yPosition={yPosition}>
@@ -84,8 +91,25 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
                 <Switch checked={isActive} onChange={handleChange} />
             </SubHeaderWrapper>
             <TextField label={"STATUT: "} variant="outlined" fullWidth value={StateString} />
-            {isActive && <Button onClick={handleTransactionImpayee} sx={{ marginTop: "8px" }} fullWidth variant="contained" color="warning" size="large">Transaction impayee</Button>}
+            {isActive && <Button onClick={() => setIsModalOpen(true)} sx={{ marginTop: "8px" }} fullWidth variant="contained" color="warning" size="large">Transaction impayee</Button>}
             {isActive && <Button sx={{ marginTop: "8px" }} fullWidth variant="text" color="primary" size="large">Archiver transaction</Button>}
+
+
+            <Dialog
+                title="Information du Vehicule"
+                open={isModalOpen}
+                onClose={handleClose}
+                >
+                <DialogTitle variant="h4">Information du Vehicule</DialogTitle>
+                <DialogContent>
+                    <Typography padding={"8px"} variant="h6">Saisissez la plaque d'immatriculation du vehicule</Typography>
+                    <TextField fullWidth variant="outlined" label="Plaque d'immatriculation"/>
+                </DialogContent>
+                <DialogActions sx={{ borderTop: "1px solid rgba(0,0,0,0.2)"}}>
+                    <Button variant="outlined" color="inherit" onClick={() => setIsModalOpen(false)}>Annuler</Button>
+                    <Button variant="contained" onClick={handleTransactionImpayee}>Enregistrer Transaction</Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     )
 }
