@@ -1,8 +1,10 @@
-
+import { DATA } from "@data";
 import { Features } from "@features";
 import Box from '@mui/material/Box';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useSelector } from "react-redux";
+
+const { INITIAL_UNPAID_TRANSACTIONS_DATA } = DATA.initialData;
 
 const columns: GridColDef[] = [
   { field: 'id', type: "string", headerName: 'ID', width: 90, headerClassName: "custom-header-styling" },
@@ -51,7 +53,7 @@ const columns: GridColDef[] = [
 
 const TransactionsGeneral = () => {
 
-  const rows = useSelector(Features.RapportsFeature.selector.getAllTransactionsData);
+  const rows = INITIAL_ALL_DATA;
 
     return (
         <Box sx={{ height: "80vh", width: '60vw' }}>

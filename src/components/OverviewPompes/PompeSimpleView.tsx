@@ -92,7 +92,6 @@ const PompeSimpleView = ({ xPosition, yPosition, id }: Props) => {
             </SubHeaderWrapper>
             <TextField label={"STATUT: "} variant="outlined" fullWidth value={StateString} />
             {isActive && <Button onClick={() => setIsModalOpen(true)} sx={{ marginTop: "8px" }} fullWidth variant="contained" color="warning" size="large">Transaction impayee</Button>}
-            {isActive && <Button sx={{ marginTop: "8px" }} fullWidth variant="text" color="primary" size="large">Archiver transaction</Button>}
 
 
             <Dialog

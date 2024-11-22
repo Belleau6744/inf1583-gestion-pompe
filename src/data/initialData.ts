@@ -1,4 +1,4 @@
-import { GestionPompe, ParametresType, RowPumpUnpaidTransaction } from "@types";
+import { GestionPompe, ParametresType, RowPumpTransaction, RowPumpUnpaidTransaction } from "@types";
 
 export const INITIAL_GESTION_POMPE_DATA: GestionPompe = { 
     pompes: {
@@ -81,6 +81,15 @@ export const INITIAL_UNPAID_TRANSACTIONS_DATA: RowPumpUnpaidTransaction[] = [
     { id: "8", pumpID: "1", date: '2023-01-02', amountUnpaid: 36, carPlate: "E12 KOP" },
 ]
 
+
+export const INITIAL_ALL_DATA: RowPumpTransaction[] = [
+    { id: "1", pumpID: "1", date: '2024-02-02', amount: 362, paid: 362, unpaid: 362 },
+    { id: "2", pumpID: "3", date: '2024-09-02', amount: 102, paid: 102, unpaid: 102 },
+    { id: "3", pumpID: "2", date: '2024-05-03', amount: 232, paid: 232, unpaid: 232 },
+    { id: "4", pumpID: "5", date: '2024-13-02', amount: 127, paid: 127, unpaid: 127 },
+    { id: "5", pumpID: "3", date: '2024-21-04', amount: 502, paid: 502, unpaid: 502 },
+    { id: "6", pumpID: "2", date: '2024-12-06', amount: 132, paid: 132, unpaid: 132 },
+]
 
 
 export const INITIAL_Archive_DATA: RowPumpUnpaidTransaction[] = [

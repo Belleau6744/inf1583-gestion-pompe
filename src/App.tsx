@@ -41,7 +41,7 @@ const NavBar = () => {
         <div style={{ display: 'flex', flex: '1'}}>
           {(role === "admin" || role === "employee") && <Link to={"/pompes"}><Typography sx={{ padding: '20px', color: "white !important" }} component="div">Overview</Typography></Link>}
           {(role === "admin" || role === "employee") && <Link to={"/rapports"}><Typography sx={{ padding: '20px', color:"white !important" }} component="div">Rapports</Typography></Link>}
-          {role === "admin" && <Link to={"/comptes"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Comptes</Typography></Link>}
+          {role === "admin" && <Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Comptes</Typography>}
           <Link to={"/pompeIndividuelle"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Pompe</Typography></Link>
           {role === "admin" && <Link to={"/parametres"}><Typography sx={{ padding: '20px', color:"white !important", flexGrow: '1', mr: "1" }} component="div">Parametres</Typography></Link>}
           
