@@ -1,5 +1,5 @@
 import { Features } from "@features";
-import { Button, InputLabel, TextField } from "@mui/material";
+import { Button, InputLabel, TextField, Typography } from "@mui/material";
 import { ChangeEvent, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -127,6 +127,7 @@ const OverviewPompes = () => {
             <PompeSimpleView id={"5"} xPosition={POSITON_POMPES.five.left} yPosition={POSITON_POMPES.five.top}/>
 
 			<OptionsMenu>
+      <Typography sx={{ color:  "black" }}>*POUR PROTOTYPAGE SEULEMENT*</Typography>
 				<InputLabel sx={InputLabelStyled}>
 					Volume reservoir 1:
 					<TextField

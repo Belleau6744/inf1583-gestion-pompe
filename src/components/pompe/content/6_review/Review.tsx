@@ -3,6 +3,7 @@ import { CircularProgress, Typography } from "@mui/material";
 import { PumpIDProp } from "@types";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import TokenIcon from '@mui/icons-material/Token';
 import styled from "styled-components";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -53,6 +54,7 @@ const Review = ({ pumpID }: PumpIDProp) => {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '12px', gap: '12px' }}>
                 <Typography>Volume: {volumeDispensed}</Typography>
                 <Typography>Montant: {amountDispensed}</Typography>
+                <Typography sx={{ display: "flex", alignItems: 'center' }}>Vous avez obtenu: {amountDispensed * 25} Jetons <TokenIcon/></Typography>
                 <CircularProgress variant="determinate" value={progress} />
             </div>
         </Container>
