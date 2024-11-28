@@ -40,4 +40,34 @@ Pour le compte admin, il suffit d'utiliser les informations de connexion suivant
 
 # Fonctionnalités
 
-- 
+#### - Compte Client
+
+- Un client peut choisir quelle pompe il veut se servir.
+- Il peut ensuite suivre les étapes pour obetenir et payer pour l'essene
+
+#### - Compte Admin
+
+- Il a accès à une vue d'ensemble des pompes et réservoir
+   - Il peut activer/déasctiver les pompes
+   - (À des fins de prototypage) Il peut modifier le niveaux des réservoirs
+- Il a accès à la vue de pompe individuelle comme un client
+- Il peut voir l'ensemble des rapports
+   - Transactions impayées
+   - Archives
+- Il a accès à voir/modifier les paramètres du système
+   - Prix Premium
+   - Prix Regulier
+   - Vitesse de Distribution
+   - Interval de Distribution
+   - Compte Admin - (Username/Mot de passe)
+- (Non-Implémenté) Il pourra voir les comptes d'employés et les modifier
+
+#### - Compte Employé
+
+- Il a accès à une vue d'ensemble des pompes et réservoir
+   - Il peut activer/déasctiver les pompes
+   - (À des fins de prototypage) Il peut modifier le niveaux des réservoirs
+- Il a accès à la vue de pompe individuelle comme un client
+- Il peut voir l'ensemble des rapports
+   - Transactions impayées
+   - Archives
